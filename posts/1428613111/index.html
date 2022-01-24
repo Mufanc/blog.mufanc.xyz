@@ -1,0 +1,222 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>记一次 Trojan 搭建 &amp; 配置实战 | 星河璀璨丶凡尘點點</title><meta name="author" content="Mufanc"><meta name="copyright" content="Mufanc"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="背景&amp;emsp;&amp;emsp;最近总感觉 v2ray 用着越来越卡了，又有传闻说 GFW 已经能够精准定位 vmess 协议，遂决定将自建的梯子换用 Trojan 协议，希望能更稳定些罢🙏。 &amp;emsp;&amp;emsp;根据官方的介绍：  On penetrating GFW, people assume that strong encryption and random obfuscation ma">
+<meta property="og:type" content="article">
+<meta property="og:title" content="记一次 Trojan 搭建 &amp; 配置实战">
+<meta property="og:url" content="https://blog.mufanc.xyz/posts/1428613111/index.html">
+<meta property="og:site_name" content="星河璀璨丶凡尘點點">
+<meta property="og:description" content="背景&amp;emsp;&amp;emsp;最近总感觉 v2ray 用着越来越卡了，又有传闻说 GFW 已经能够精准定位 vmess 协议，遂决定将自建的梯子换用 Trojan 协议，希望能更稳定些罢🙏。 &amp;emsp;&amp;emsp;根据官方的介绍：  On penetrating GFW, people assume that strong encryption and random obfuscation ma">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+<meta property="article:published_time" content="2022-01-24T10:47:35.000Z">
+<meta property="article:modified_time" content="2022-01-24T11:02:23.741Z">
+<meta property="article:author" content="Mufanc">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://blog.mufanc.xyz/posts/1428613111/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '记一次 Trojan 搭建 & 配置实战',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-01-24 19:02:23'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.0.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/assets/avatar.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">2</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div></div><hr/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">星河璀璨丶凡尘點點</a></span><div id="menus"><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">记一次 Trojan 搭建 &amp; 配置实战</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-01-24T10:47:35.000Z" title="发表于 2022-01-24 18:47:35">2022-01-24</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-01-24T11:02:23.741Z" title="更新于 2022-01-24 19:02:23">2022-01-24</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="记一次 Trojan 搭建 &amp; 配置实战"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>&emsp;&emsp;最近总感觉 v2ray 用着越来越卡了，又有传闻说 <a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E9%98%B2%E7%81%AB%E9%95%BF%E5%9F%8E">GFW</a> 已经能够精准定位 vmess 协议，遂决定将自建的梯子换用 <a target="_blank" rel="noopener" href="https://github.com/trojan-gfw/trojan">Trojan</a> 协议，希望能更稳定些罢🙏。</p>
+<p>&emsp;&emsp;根据官方的介绍：</p>
+<blockquote>
+<p>On penetrating GFW, people assume that strong encryption and random obfuscation may cheat GFW’s filtration mechanism. However, trojan implements the direct opposite: it imitates the most common protocol across the wall, HTTPS, to trick GFW into thinking that it is HTTPS.</p>
+<p>&emsp;&emsp;（在穿透 GFW 时，人们通常认为强加密和随机混淆可能骗过 GFW 的过滤机制。然而，Trojan 实现了直接相反的效果：它模仿了墙对面最常见的协议 —— https，以欺骗 GFW，使其认为这是正常的 https。）</p>
+</blockquote>
+<h2 id="VPS-部署-amp-域名解析"><a href="#VPS-部署-amp-域名解析" class="headerlink" title="VPS 部署 &amp; 域名解析"></a>VPS 部署 &amp; 域名解析</h2><p>&emsp;&emsp;还是选择经典的 vultr 作为 vps 提供商，新建一台服务器。类型选择 Cloud Compute，由于我的 Steam 帐号是在日区的，地址就选在东京了。系统选 Ubuntu 20.04，配置选择最低一档足矣，5 美刀一个月完全够用。最后在下方开启 ipv6，点击 <code>Deploy Now</code> 即可完成服务器部署</p>
+
+
+<p>&emsp;&emsp;然后需要将域名解析到刚刚部署的服务器 ip 上，这里我是从 <a target="_blank" rel="noopener" href="https://www.aliyun.com/">阿里云</a> 购买域名，然后交给 <a target="_blank" rel="noopener" href="https://www.cloudflare.com/zh-cn/">cloudflare</a> 解析，具体注册过程这里不再赘述，重点介绍设置解析的过程，在控制台的『域名列表』中点击 更多 -&gt; 管理，可以在打开的页面中找到『修改 DNS 服务器』，将其改为 Cloudflare 提供的 dns 服务器地址：</p>
+
+
+
+
+<p>&emsp;&emsp;然后来到 Cloudflare，新增一条 A 记录，将域名指向刚刚部署的服务器 ip，至此就完成了域名部分的配置</p>
+<h2 id="配置-Trojan-服务端-amp-SSL-证书"><a href="#配置-Trojan-服务端-amp-SSL-证书" class="headerlink" title="配置 Trojan 服务端 &amp; SSL 证书"></a>配置 Trojan 服务端 &amp; SSL 证书</h2><p>&emsp;&emsp;由于 Trojan 通过模仿 https 协议以欺骗 GFW，因此必须申请一个 SSL 证书来实现加密连接。</p>
+<p>&emsp;&emsp;这里我使用 <a target="_blank" rel="noopener" href="https://github.com/acmesh-official/acme.sh">acme.sh</a> 来实现 SSL 证书的自动续签，acme.sh 通过 crontab 实现证书的自动续签，所以在安装 acme.sh 之前，确保已经安装好 crontab，然后安装 acme.sh：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl https://get.acme.sh | sh -s email=my@example.com</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;然后创建一个 alias，方便以后使用：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alias acme.sh=~/.acme.sh/acme.sh</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;首先需要配置几个变量：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">export CF_Key=&quot;fda2******************************7b9&quot;</span><br><span class="line">export CF_Email=&quot;your@example.com&quot;</span><br><span class="line"></span><br><span class="line">export CF_Token=&quot;oCrI*********************************l0y&quot;</span><br><span class="line">export CF_Account_ID=&quot;e182*************************a17&quot;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;如果域名服务商是 Cloudflare，那么：</p>
+<ul>
+<li><p><code>CF_Key</code> 可以在 <a target="_blank" rel="noopener" href="https://dash.cloudflare.com/profile/api-tokens">这个页面</a> 看到，即下方的 <code>Global API Key</code></p>
+</li>
+<li><p><code>CF_Email</code> 就是邮箱地址，很好理解</p>
+</li>
+<li><p><code>CF_Token</code> 同样可以在 <a target="_blank" rel="noopener" href="https://dash.cloudflare.com/profile/api-tokens">这个页面</a> 申请，需要授予 <code>Zone.Zone</code> 的 Read 权限和 <code>Zone.DNS</code> 的 Write 权限用以自动验证域名</p>
+</li>
+<li><p><code>CF_Account_ID</code> 可以在 Overview 页面找到</p>
+</li>
+</ul>
+<p>&emsp;&emsp;然后执行下面的命令开始申请证书：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">acme.sh --issue --dns dns_cf -d your.server.com</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;如果一切顺利，就可以继续部署证书了，<code>reloadcmd</code>参数可以让软件重新载入证书，我这里配置 Trojan 在证书更新后自动重启：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">acme.sh --install-cert -d your.server.com --key-file /root/.acme.sh/your.server.com/your.server.com.key --fullchain-file /root/.acme.sh/your.server.com/fullchain.cer --reloadcmd &quot;systemctl restart trojan&quot;</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;接下来安装 Trojan，这里使用官方的 <a target="_blank" rel="noopener" href="https://github.com/trojan-gfw/trojan/wiki/Binary-&-Package-Distributions">一键安装脚本</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash -c &quot;$(wget -O- https://raw.githubusercontent.com/trojan-gfw/trojan-quickstart/master/trojan-quickstart.sh)&quot;</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;安装后的配置文件位置：<code>/usr/local/etc/trojan/config.json</code>，接下来修改配置文件，主要关注这几行：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    ......</span><br><span class="line">    <span class="attr">&quot;remote_addr&quot;</span>: <span class="string">&quot;example.com&quot;</span>,  <span class="comment">// 遇到非 Trojan 协议时连接的地址</span></span><br><span class="line">    <span class="attr">&quot;remote_port&quot;</span>: <span class="number">80</span>,  <span class="comment">// 遇到非 Trojan 协议时连接的端口</span></span><br><span class="line">    <span class="attr">&quot;password&quot;</span>: [  </span><br><span class="line">		<span class="string">&quot;your.password.here&quot;</span>  <span class="comment">// 密码</span></span><br><span class="line">	],</span><br><span class="line">	......</span><br><span class="line">    <span class="attr">&quot;ssl&quot;</span>: &#123;</span><br><span class="line">        <span class="attr">&quot;cert&quot;</span>: <span class="string">&quot;/root/.acme.sh/your.server.com/fullchain.cer&quot;</span>,  <span class="comment">// 证书文件路径</span></span><br><span class="line">        <span class="attr">&quot;key&quot;</span>: <span class="string">&quot;/root/.acme.sh/your.server.com/your.server.com.key&quot;</span>,  <span class="comment">// 密钥文件路径</span></span><br><span class="line">		......</span><br><span class="line">		<span class="attr">&quot;alpn&quot;</span>: [ <span class="string">&quot;http/1.1&quot;</span>, <span class="string">&quot;h2&quot;</span> ],  <span class="comment">// ALPN 要回复的协议列表</span></span><br><span class="line">		......</span><br><span class="line">	&#125;</span><br><span class="line">	......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;最后使用 <code>ufw status</code> 查看一下防火墙的状态，强烈建议只开启 22（ssh）和 tcp/443 端口：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Status: active  </span><br><span class="line">  </span><br><span class="line">To                         Action      From  </span><br><span class="line">--                         ------      ----  </span><br><span class="line">22                         ALLOW       Anywhere  </span><br><span class="line">443/tcp                    ALLOW       Anywhere  </span><br><span class="line">22 (v6)                    ALLOW       Anywhere (v6) </span><br><span class="line">443/tcp (v6)               ALLOW       Anywhere (v6)</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;可以使用下面的命令允许访问 443 端口：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ufw allow 443/tcp</span><br></pre></td></tr></table></figure>
+
+<h2 id="配置-Clash-客户端"><a href="#配置-Clash-客户端" class="headerlink" title="配置 Clash 客户端"></a>配置 Clash 客户端</h2><p>&emsp;&emsp;客户端一直在用 <a target="_blank" rel="noopener" href="https://github.com/Fndroid/clash_for_windows_pkg/releases">Clash For Windows</a>，PC 端全平台支持，且配置非常灵活。比如这里我使用 Mixin 脚本将自己的 Trojan 配置直接混合到当前订阅中去，切换起来非常方便：</p>
+
+
+<p>&emsp;&emsp;下面是 Mixin 脚本（记得在设置中切换 Mixin Type 为 JavaScript）：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports.parse = <span class="function">(<span class="params">&#123; content, name, url &#125;, &#123; yaml, axios, notify &#125;</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="string">&#x27;proxies&#x27;</span> <span class="keyword">in</span> content &amp;&amp; <span class="string">&#x27;proxy-groups&#x27;</span> <span class="keyword">in</span> content) &#123;</span><br><span class="line">        content[<span class="string">&#x27;proxies&#x27;</span>].push(&#123;</span><br><span class="line">            <span class="attr">name</span>: <span class="string">&#x27;Trojan 🛡️&#x27;</span>,</span><br><span class="line">            <span class="attr">type</span>: <span class="string">&#x27;trojan&#x27;</span>,</span><br><span class="line">            <span class="attr">server</span>: <span class="string">&#x27;your.server.com&#x27;</span>,</span><br><span class="line">            <span class="attr">port</span>: <span class="number">443</span>,</span><br><span class="line">            <span class="attr">password</span>: <span class="string">&#x27;your.password.here&#x27;</span>,</span><br><span class="line">            <span class="attr">alpn</span>: [ <span class="string">&#x27;h2&#x27;</span>, <span class="string">&#x27;http/1.1&#x27;</span> ]</span><br><span class="line">        &#125;)</span><br><span class="line">        content[<span class="string">&#x27;proxy-groups&#x27;</span>][<span class="number">0</span>][<span class="string">&#x27;proxies&#x27;</span>].unshift(<span class="string">&#x27;Trojan 🛡️&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="keyword">return</span> content</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><p><a target="_blank" rel="noopener" href="https://lhy.life/20200324-trojan-build/">Trojan 手动搭建教程</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://lhy.life/20200827-acme/">使用 acme.sh 申请和自动续签 SSL 证书</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/acmesh-official/acme.sh">An ACME Shell script: acme.sh</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://leanhe.dev/posts/2021.04.17.1/">acme.sh + CloudFlare + Nginx - ssr’s blog</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://trojan-gfw.github.io/trojan/config">Config | trojan</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://docs.cfw.lbyczf.com/contents/mixin.html">Mixin | Clash for Windows</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/Dreamacro/clash/wiki/configuration">configuration · Dreamacro/clash Wiki · GitHub</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://cyfeng.science/2020/06/28/advanced-thinking-about-free-tls-license/">免费TLS证书进阶指南：acme.sh letsencrypt 和Cloudflare DNS API | CO + 2Fe = COFFee</a></p>
+</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Mufanc</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://blog.mufanc.xyz/posts/1428613111/">https://blog.mufanc.xyz/posts/1428613111/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.mufanc.xyz" target="_blank">星河璀璨丶凡尘點點</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/posts/4277378572/"><img class="next-cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">渲染测试</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/assets/avatar.jpeg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Mufanc</div><div class="author-info__description"></div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">2</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Mufanc"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%83%8C%E6%99%AF"><span class="toc-number">1.</span> <span class="toc-text">背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VPS-%E9%83%A8%E7%BD%B2-amp-%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90"><span class="toc-number">2.</span> <span class="toc-text">VPS 部署 &amp; 域名解析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE-Trojan-%E6%9C%8D%E5%8A%A1%E7%AB%AF-amp-SSL-%E8%AF%81%E4%B9%A6"><span class="toc-number">3.</span> <span class="toc-text">配置 Trojan 服务端 &amp; SSL 证书</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE-Clash-%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="toc-number">4.</span> <span class="toc-text">配置 Clash 客户端</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">5.</span> <span class="toc-text">参考</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/1428613111/" title="记一次 Trojan 搭建 &amp; 配置实战">记一次 Trojan 搭建 &amp; 配置实战</a><time datetime="2022-01-24T10:47:35.000Z" title="发表于 2022-01-24 18:47:35">2022-01-24</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/4277378572/" title="渲染测试">渲染测试</a><time datetime="2022-01-24T08:30:48.000Z" title="发表于 2022-01-24 16:30:48">2022-01-24</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By Mufanc</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
