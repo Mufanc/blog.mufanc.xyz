@@ -1,3 +1,4 @@
+/* 自定义字体 */
 @font-face {
     font-family: setofont;
     src: url(/assets/fonts/setofont.ttf);
@@ -6,4 +7,21 @@
 @font-face {
     font-family: zhushi;
     src: url(/assets/fonts/zhushi.ttf);
+}
+
+
+/* 哔哩哔哩 iframe 适配 */
+.bilibili {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 75%;
+}
+
+.bilibili iframe {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
 }
