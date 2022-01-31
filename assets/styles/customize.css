@@ -1,14 +1,13 @@
-/* 自定义字体 */
+<html><head></head><body>/* 自定义字体 */
 @font-face {
-    font-family: setofont;
+    font-family: 'setofont';
     src: url(/assets/fonts/setofont.ttf);
 }
 
 @font-face {
-    font-family: zhushi;
+    font-family: 'zhushi';
     src: url(/assets/fonts/zhushi.ttf);
 }
-
 
 /* 哔哩哔哩 iframe 适配 */
 .bilibili {
@@ -25,3 +24,4 @@
     left: 0;
     top: 0;
 }
+</body></html>
