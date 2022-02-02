@@ -1,4 +1,10 @@
-<html><head></head><body>/* 自定义字体 */
+<html><head></head><body>/* 占位符（用于解决第一个 style 丢失的奇怪问题） */
+placeholder {
+    display: none
+}
+
+
+/* 自定义字体 */
 @font-face {
     font-family: 'setofont';
     src: url(/assets/fonts/setofont.ttf);
@@ -24,4 +30,32 @@
     left: 0;
     top: 0;
 }
-</body></html>
+
+
+/* 文章页 H1-H6 图标样式效果 */
+#content-inner.layout h1::before {
+    color: #ef50a8 ;
+    margin-left: -1.55rem;
+    font-size: 1.3rem;
+    margin-top: -0.23rem;
+}
+
+#content-inner.layout h2::before {
+    color: #fb7061 ;
+    margin-left: -1.35rem;
+    font-size: 1.1rem;
+    margin-top: -0.12rem;
+}
+
+h1::before, h2::before, h3::before, h4::before, h5::before, h6::before {
+    animation: rotate 1.6s linear infinite ;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg)
+    }
+    to {
+        transform: rotate(-1turn)
+    }
+}</body></html>
