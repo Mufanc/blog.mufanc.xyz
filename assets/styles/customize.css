@@ -1,4 +1,4 @@
-<html><head></head><body>/* 占位符（用于解决第一个 style 丢失的奇怪问题） */
+/* 占位符（用于解决第一个 style 丢失的奇怪问题） */
 placeholder {
     display: none
 }
@@ -94,4 +94,4 @@ placeholder {
     to {
         transform: rotate(-1turn)
     }
-}</body></html>
+}
