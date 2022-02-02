@@ -34,21 +34,57 @@ placeholder {
 
 /* 文章页 H1-H6 图标样式效果 */
 #content-inner.layout h1::before {
-    color: #ef50a8 ;
-    margin-left: -1.55rem;
-    font-size: 1.3rem;
-    margin-top: -0.23rem;
+    color: #ef50a8;
+    margin-left: -31px;
+    font-size: 26px;
+    margin-top: -5px
 }
 
 #content-inner.layout h2::before {
-    color: #fb7061 ;
-    margin-left: -1.35rem;
-    font-size: 1.1rem;
-    margin-top: -0.12rem;
+    color: #fb7061;
+    margin-left: -27px;
+    font-size: 22px;
+    margin-top: -3px
 }
 
-h1::before, h2::before, h3::before, h4::before, h5::before, h6::before {
-    animation: rotate 1.6s linear infinite ;
+#content-inner.layout h3::before {
+    color: #ffbf00;
+    margin-left: -25px;
+    font-size: 20px;
+    margin-top: -2px
+}
+
+#content-inner.layout h4::before {
+    color: #a9e000;
+    font-size: 16px;
+    margin-top: -2px
+}
+
+#content-inner.layout h5::before {
+    color: #57c850;
+    margin-left: -18px;
+    font-size: 14px;
+    margin-top: 0
+}
+
+#content-inner.layout h6::before {
+    color: #5ec1e0;
+    margin-left: -18px;
+    font-size: 13px;
+    margin-top: 0
+}
+
+#content-inner.layout h1::before,#content-inner.layout h2::before,#content-inner.layout h3::before,#content-inner.layout h4::before,#content-inner.layout h5::before,#content-inner.layout h6::before {
+    animation: rotate 1.6s linear infinite;
+}
+
+#content-inner.layout h1:hover,#content-inner.layout h2:hover,#content-inner.layout h3:hover,#content-inner.layout h4:hover,#content-inner.layout h5:hover,#content-inner.layout h6:hover {
+    color: #49b1f5
+}
+
+#content-inner.layout h1:hover::before,#content-inner.layout h2:hover::before,#content-inner.layout h3:hover::before,#content-inner.layout h4:hover::before,#content-inner.layout h5:hover::before,#content-inner.layout h6:hover::before {
+    color: #49b1f5;
+    animation: rotate 3.2s linear infinite
 }
 
 @keyframes rotate {
