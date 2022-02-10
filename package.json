@@ -1,0 +1,15 @@
+{
+  "name": "blog.mufanc.xyz",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "main": "node index.js"
+  },
+  "author": "Mufanc",
+  "license": "MIT",
+  "dependencies": {
+    "@actions/core": "^1.6.0",
+    "@actions/github": "^2.2.0"
+  }
+}

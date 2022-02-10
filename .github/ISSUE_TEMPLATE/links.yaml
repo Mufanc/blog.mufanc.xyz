@@ -1,0 +1,29 @@
+name: 友链交换🔗
+description: 机器人会自动将你的提交整合到博客的友链页面中
+labels: [submit]
+title: 'blog.example.com'
+body:
+  - type: textarea
+    attributes:
+      label: 'Name / 昵称'
+      value: '{% 你的昵称，尽量不要太长 %}'
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: 'URL / 链接'
+      value: '{% 你的网站 URL %}'
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: 'Avatar / 头像'
+      value: '{% 你的头像 URL，图片尽量不要太大哦 %}'
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: 'Description / 描述'
+      value: '{% 用一句话介绍一下你的网站 %}'
+    validations:
+      required: true
