@@ -8,13 +8,15 @@ const fs = require('fs').promises
         const body = process.env.ISSUE_BODY
         const { owner, repo } = context.repo
 
-        // 保存到单独的 json 文件
-        let [ name, link, avatar, descr ] = body.match(/{%.+?%}/g)
-            .map(x => x.substring(2, x.length-2).trim())
-        let domain = link.match(/https?:\/\/([^/]+)(?:\/.*)?/)[1]
-        await fs.writeFile(`./link/sites/${domain}.json`, JSON.stringify({
-            name, link, avatar, descr
-        }))
+        if (body) {
+            // 保存到单独的 json 文件
+            let [ name, link, avatar, descr ] = body.match(/{%.+?%}/g)
+                .map(x => x.substring(2, x.length-2).trim())
+            let domain = link.match(/https?:\/\/([^/]+)(?:\/.*)?/)[1]
+            await fs.writeFile(`./link/sites/${domain}.json`, JSON.stringify({
+                name, link, avatar, descr
+            }))
+        }
 
         // 生成总的友链 json
         let files = (await fs.readdir('./link/sites')).filter(str => !str.startsWith('.'))
@@ -33,17 +35,19 @@ const fs = require('fs').promises
         }
         await fs.writeFile('links.json', JSON.stringify(json))
 
-        // 评论并关闭 issue
-        const octokit = new GitHub(token)
-        let issue_number = context.payload.issue?.number
-        await octokit.issues.createComment({
-            owner, repo, issue_number,
-            body: '恭喜！你提交的友链已经成功合并'
-        })
-        await octokit.issues.update({
-            owner, repo, issue_number,
-            state: 'closed'
-        })
+        if (body) {
+            // 评论并关闭 issue
+            const octokit = new GitHub(token)
+            let issue_number = context.payload.issue?.number
+            await octokit.issues.createComment({
+                owner, repo, issue_number,
+                body: '恭喜！你提交的友链已经成功合并'
+            })
+            await octokit.issues.update({
+                owner, repo, issue_number,
+                state: 'closed'
+            })
+        }
     } catch (error) {
         core.setFailed(error.message)
     }
