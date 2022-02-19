@@ -15,6 +15,11 @@ placeholder {
     src: url(/assets/fonts/zhushi.ttf);
 }
 
+@font-face {
+    font-family: 'by-winnie-stars';
+    src: url(/assets/fonts/by-winnie-stars.ttf);
+}
+
 /* 哔哩哔哩 iframe 适配 */
 .bilibili {
     position: relative;
@@ -29,6 +34,11 @@ placeholder {
     height: 100%;
     left: 0;
     top: 0;
+}
+
+/* 侧边栏宽度 */
+#aside-content > * {
+    width: 150%;
 }
 
 /* 友链页面卡片宽度 */

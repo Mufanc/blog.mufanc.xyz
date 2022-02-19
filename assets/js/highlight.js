@@ -1,4 +1,4 @@
-function highlight_code(script, lines, color) {
+function highlight(script, lines, color) {
     function gen(rattr, index) {
         return `
             [${rattr}] .code pre span:nth-child(${index*2-1}) {color: ${color};}\n
