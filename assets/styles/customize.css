@@ -37,9 +37,18 @@ placeholder {
 }
 
 /* 侧边栏宽度 */
-#aside-content > * {
-    width: 150%;
+#content-inner {
+    max-width: 1400px;
 }
+
+#post {
+    width: 68%
+}
+
+#aside-content {
+    width: 32%;
+}
+
 
 /* 友链页面卡片宽度 */
 #article-container .flink .flink-list > .flink-list-item {
