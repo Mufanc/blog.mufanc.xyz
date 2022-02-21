@@ -36,13 +36,18 @@ placeholder {
     top: 0;
 }
 
+/* 右下角按钮不透明
+#rightside {
+    opacity: 1;
+} */
+
 /* 文章背景透明 */
 :root {
-    --card-bg: #ffffffcc
+    --card-bg: #ffffffcc;
 }
 
 [data-theme='dark'] {
-    --card-bg: #0000007f
+    --card-bg: #0000007f;
 }
 
 /* 侧边栏宽度 */
