@@ -36,6 +36,15 @@ placeholder {
     top: 0;
 }
 
+/* 文章背景透明 */
+:root {
+    --card-bg: #ffffffcc
+}
+
+[data-theme='dark'] {
+    --card-bg: #0000007f
+}
+
 /* 侧边栏宽度 */
 #content-inner {
     max-width: 1400px;
