@@ -12,7 +12,7 @@ body:
   - type: textarea
     attributes:
       label: 'URL / 链接'
-      value: '{% 你的网站 URL %}'
+      value: '{% 你的网站 URL (以 http:// 或 https:// 开头) %}'
     validations:
       required: true
   - type: textarea
