@@ -1,9 +1,3 @@
-/* 占位符（用于解决第一个 style 丢失的奇怪问题） */
-placeholder {
-    display: none
-}
-
-
 /* 自定义字体 */
 @font-face {
     font-family: 'setofont';
@@ -36,11 +30,6 @@ placeholder {
     top: 0;
 }
 
-/* 右下角按钮不透明
-#rightside {
-    opacity: 1;
-} */
-
 /* 文章背景透明 */
 :root {
     --card-bg: #ffffffcc;
@@ -61,6 +50,12 @@ placeholder {
 
 #aside-content {
     width: 32%;
+}
+
+@media screen and (max-width: 900px) {
+    #aside-content {
+        width: 100%;
+    }
 }
 
 
