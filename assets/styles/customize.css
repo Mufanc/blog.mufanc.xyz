@@ -58,6 +58,17 @@
     }
 }
 
+/* 「重新加密」按钮字体 */
+.hbe-button {
+    font-size: 17px;
+    font-family: inherit !important;
+}
+
+/* Snackbar 行距调整 */
+.snackbar-container p {
+    line-height: 1.3em !important;
+}
+
 
 /* 友链页面卡片宽度 */
 #article-container .flink .flink-list > .flink-list-item {
