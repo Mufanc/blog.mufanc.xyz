@@ -58,6 +58,11 @@
     }
 }
 
+/* 链接卡片字间距 */
+.tag.link a.link-card {
+    letter-spacing: 1px;
+}
+
 /* 「重新加密」按钮字体 */
 .hbe-button {
     font-size: 17px;
