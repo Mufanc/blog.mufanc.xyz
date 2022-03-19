@@ -1,0 +1,329 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>记录｜使用 ESXi 软路由构建舒适的宿舍网络环境 | 星河璀璨丶凡尘點點</title><meta name="author" content="Mufanc"><meta name="copyright" content="Mufanc"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="学校虽有提供现成的校园网和宽带服务，但我这么一个折腾狂魔，免不了要对网络环境进行一番改造，遂斥巨资购入了一台搭载 ESXi 系统的工控机来作为软路由使用 关于校园网 &amp; 校园宽带   校园网（HNU WiFi）和校园宽带都是需要登录认证才能使用的。曾在去年，老湖就因为校园网的收费政策引起过一波讨论。流量计费确实可以理解，校方这边也还是很乐意听取学生的意见的，很快便指定了新的计费政策，最">
+<meta property="og:type" content="article">
+<meta property="og:title" content="记录｜使用 ESXi 软路由构建舒适的宿舍网络环境">
+<meta property="og:url" content="https://blog.mufanc.xyz/posts/1524517905/index.html">
+<meta property="og:site_name" content="星河璀璨丶凡尘點點">
+<meta property="og:description" content="学校虽有提供现成的校园网和宽带服务，但我这么一个折腾狂魔，免不了要对网络环境进行一番改造，遂斥巨资购入了一台搭载 ESXi 系统的工控机来作为软路由使用 关于校园网 &amp; 校园宽带   校园网（HNU WiFi）和校园宽带都是需要登录认证才能使用的。曾在去年，老湖就因为校园网的收费政策引起过一波讨论。流量计费确实可以理解，校方这边也还是很乐意听取学生的意见的，很快便指定了新的计费政策，最">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog.mufanc.xyz/assets/images/top_img.webp">
+<meta property="article:published_time" content="2022-03-11T10:33:55.000Z">
+<meta property="article:modified_time" content="2022-03-19T14:20:05.574Z">
+<meta property="article:author" content="Mufanc">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.mufanc.xyz/assets/images/top_img.webp"><link rel="shortcut icon" href="/"><link rel="canonical" href="https://blog.mufanc.xyz/posts/1524517905/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="manifest" href="/manifest.json"/><link rel="apple-touch-icon" sizes="180x180" href="/assets/images/icon.png"/><link rel="icon" type="image/png" sizes="32x32" href="/assets/images/icon.png"/><link rel="icon" type="image/png" sizes="16x16" href="/assets/images/icon.png"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: {"limitDay":120,"position":"top","messagePrev":"这篇文章距离上次更新已经超过","messageNext":"天，其内容可能已过时"},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":500},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '记录｜使用 ESXi 软路由构建舒适的宿舍网络环境',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-03-19 22:20:05'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/assets/styles/customize.css"><script src="/assets/js/jquery-3.6.0.min.js"></script><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/l-lin/font-awesome-animation/dist/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-tag-plugins@latest/lib/tag_plugins.min.css" media="defer" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/hexo-butterfly-tag-plugins-plus@latest/lib/carousel-touch.min.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-tag-plugins@latest/lib/mindmap.min.css" media="defer" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.0.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/assets/images/avatar.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">12</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/assets/images/top_img.webp')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">星河璀璨丶凡尘點點</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">记录｜使用 ESXi 软路由构建舒适的宿舍网络环境</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-03-11T10:33:55.000Z" title="发表于 2022-03-11 18:33:55">2022-03-11</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-03-19T14:20:05.574Z" title="更新于 2022-03-19 22:20:05">2022-03-19</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>8分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="记录｜使用 ESXi 软路由构建舒适的宿舍网络环境"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/posts/1524517905/#post-comment"><span id="twikoo-count"></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><html><head></head><body><p>  学校虽有提供现成的校园网和宽带服务，但我这么一个折腾狂魔，免不了要对网络环境进行一番改造，遂斥巨资购入了一台搭载 ESXi 系统的工控机来作为软路由使用</p>
+<h2 id="关于校园网-校园宽带">关于校园网 &amp; 校园宽带</h2>
+<p>  校园网（HNU WiFi）和校园宽带都是需要登录认证才能使用的。曾在去年，老湖就因为校园网的收费政策引起过一波讨论。流量计费确实可以理解，校方这边也还是很乐意听取学生的意见的，很快便指定了新的计费政策，最近似乎也在筹划着更换新的 AP，最最重要的是，它支持网页认证！不过嘛，缺点也还是有的，或许也算不上缺点，几万人在用的大内网，开个 AP 隔离确实更安全，但这样于我个人而言，就不太方便各个设备之间互联互通了</p>
+<p>  再来看校园宽带这边，虽然不存在 AP 隔离，但每次都得绕一圈从它的网关回来也不像话，同时宽带更是限制多多，每个平台都必须使用专门的客户端才能登录，这让我大 Ubuntu 用户情何以堪？更有甚者，每个平台最多只能有一台设备在线，这是默认我只能有一部手机？</p>
+<p>  如此种种，我们自然是不能给它惯着，说了这么多，来看看我是如何整顿宿舍网络环境的吧！</p>
+<h2 id="通过-ICS-绕过共享限制">通过 ICS 绕过共享限制</h2>
+<p><img src="physical-interfaces.png" alt=""></p>
+<p>  这台工控机一共有 4 个网口，分别对应着 4 张物理网卡，现在通过拔插网线的方式，来确定一下网卡和接口的对应关系：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">网卡名称</th>
+<th style="text-align:center">物理接口</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">vmnic0</td>
+<td style="text-align:center">L3/W2</td>
+</tr>
+<tr>
+<td style="text-align:center">vmnic1</td>
+<td style="text-align:center">LAN1</td>
+</tr>
+<tr>
+<td style="text-align:center">vmnic2</td>
+<td style="text-align:center">L2/W3</td>
+</tr>
+<tr>
+<td style="text-align:center">vmnic3</td>
+<td style="text-align:center">WAN1</td>
+</tr>
+</tbody>
+</table>
+<p>  「天翼校园」虽然会检测 Windows 自带的 WiFi Direct 热点共享，但对 ICS 网络共享似乎并不能察觉。我这边准备了一台 Win7 的虚拟机用于拨号和 ICS 网络共享，一共分配 4GB RAM 和 24GB 存储，还算是绰绰有余：</p>
+<p><img src="win7-dialer.png" alt=""></p>
+<p>  然后分别将 <code>Outbound</code> 和 <code>WAN</code> 网络添加到虚拟机上，<code>Outbound</code> 用于向外部拨号连接，<code>WAN</code> 绑定了 <code>L2/W3</code> 物理接口，插在无线路由器的 WAN 口。其实这里如果能把 <code>vmnic3</code> PCI 直通到 Windows 拨号机会获得更好的性能，估计校园宽带这点孱弱的网速也跑不满，想想还是算了，装驱动怪麻烦的……</p>
+<p><img src="prepare-files.png" alt=""></p>
+<p>  然后拨号机这边也是把需要的文件提前准备好，主要是「天翼校园」认证客户端、用于自动拨号的 Python 和 KMS 激活工具；接下来再对 Windows 做一些简单的设置，在「运行」窗口中输入 <code>UserAccountControlSettings</code> 回车，将通知级别修改为「从不通知」</p>
+<p><img src="uac-off.png" alt=""></p>
+<p>  这一步是设置系统默认允许所有管理员权限请求，以避免自动化过程中有进程提权导致弹出的 UAC 影响脚本正常功能，<strong>强烈不建议</strong>在日常工作的电脑上这么干，非常危险！</p>
+<p><img src="self-debug-tool.png" alt=""></p>
+<p>  激活 Windows 之后，安装好宽带客户端，发现经常弹出这个「自助排障工具」，非常烦人，简单给它处理一下：将原来的可执行文件加上后缀 <code>.bak</code>，然后创建一个同名只读文件即可</p>
+<h2 id="编译-OpenWrt-配置旁路由">编译 OpenWrt &amp; 配置旁路由</h2>
+<p>  拨号成功后先挂着不管，来到 <a target="_blank" rel="noopener" href="https://github.com/esirplayground/AutoBuild-OpenWrt">这个仓库</a>，按教程配置好后开始编译，大约等待 1-2 个小时，就可以在 Actions 页面找到编译好的 zip 文件啦～</p>
+<p>  打开压缩包，乍一看好像乱七八糟的东西不少，不过不要惊慌，只需要把这个 vmdk 文件拿出来就可以了：</p>
+<p><img src="unzip-vmdk.png" alt=""></p>
+<p>  将 vmdk 上传到 ESXi，但这个 vmdk 是专为 VMWare Player、VMWare Fushion 或者 VMware Workstation 准备的，在 ESXi 上并不能直接使用，所以我们需要先把它转换成 ESXi 的格式。首先登录到 ESXi 网页控制台，在 主机-&gt;管理-&gt;服务 中启用 TSM-SSH：</p>
+<p><img src="esxi-ssh.png" alt=""></p>
+<p>  通过 ssh 连接到 ESXi，然后找到刚刚上传的 vmdk 文件</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /vmfs/volumes</span><br><span class="line">ls</span><br></pre></td></tr></tbody></table></figure>
+<p>  然后进行转换：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vmkfstools -i openwrt-x86-64-generic-squashfs-combined-efi.vmdk openwrt-esxi.vmdk</span><br></pre></td></tr></tbody></table></figure>
+<p>  准备工作已经完成，现在创建新的虚拟机，创建时系统版本选择 Linux、其它 64 位：</p>
+<p><img src="new-vm-openwrt.png" alt=""></p>
+<p>  然后将默认的硬盘删除，在左上角添加刚刚转换好的虚拟硬盘文件：</p>
+<p><img src="vm-add-disk.png" alt=""></p>
+<p>  网络适配器选择 <code>VM Network</code>，继续完成创建，然后打开虚拟机电源，等待控制台不再刷新之后，按回车即可进入系统</p>
+<p><img src="installed-openwrt.png" alt=""></p>
+<p>  使用之前，我们还需要再做几步配置，现在 OpenWrt 的 web 控制台大概率是无法访问的状态，我们需要更新它的 ip 地址，执行 <code>vim /etc/config/network</code> 编辑配置文件，找到 <strong>lan 配置</strong> 下的 ipaddr 选项，将其更改为一个可以访问的 ip 地址：</p>
+<p><img src="modify-lan-address.png" alt=""></p>
+<p>  保存退出后重启虚拟机，就可以从浏览器访问 OpenWrt 的 web 控制台了：</p>
+<p><img src="openwrt-web-console.png" alt=""></p>
+<p>  接下来是旁路由的配置，在 web 管理界面打卡 网络-&gt;接口 页面，在「基本设置」中指定 ipv4 网关、广播地址以及 DNS 服务器（DNS 服务器指定为主路由地址），因为我把所有主要设备都设置为静态 ip，所以直接在下方关闭 DHCP 服务；然后在上方选项卡切换到「物理设置」，取消接口桥接，点击保存（<strong>注意不是「保存&amp;应用」！</strong>）</p>
+<p>  现在来到 网络-&gt;防火墙-&gt;自定义规则，在下方添加一条：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -t nat -I POSTROUTING -j MASQUERADE</span><br></pre></td></tr></tbody></table></figure>
+<p>  在下方按钮处重启防火墙，然后在网页右上角找到「未保存的配置：x」并点击，选择「保存&amp;应用」即可，最后修改所有静态 ip 设备，将网关地址指向 OpenWrt。至此，旁路由配置暂且告一段落</p>
+<h2 id="实现自动拨号和网络检测">实现自动拨号和网络检测</h2>
+<p>  旁路由配置完成，现在回到 Windows 拨号机，准备开始实现自动拨号。在 Windows 物理机上装好拨号客户端，用 Spy++ 检查窗口，得到窗口类名和标题</p>
+<p><img src="spy++.jpg" alt=""></p>
+<p>  然后来搓一个小脚本，循环 GET 几大门户网站，当其中大多数均失败时，判定为网络连接不佳，自动重启客户端。因为客户端窗口大小是定死的（330 × 559），我这里直接使用像素座标进行定位：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> traceback</span><br><span class="line"><span class="keyword">from</span> time <span class="keyword">import</span> sleep</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> httpx</span><br><span class="line"><span class="keyword">import</span> win32api</span><br><span class="line"><span class="keyword">import</span> win32com.client</span><br><span class="line"><span class="keyword">import</span> win32gui</span><br><span class="line"><span class="keyword">from</span> loguru <span class="keyword">import</span> logger</span><br><span class="line"><span class="keyword">from</span> win32con <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ESurfingDaemon</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">delay</span>(<span class="params">time=<span class="number">0.5</span></span>):</span></span><br><span class="line">        sleep(time)</span><br><span class="line"></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">urltest</span>(<span class="params">url</span>):</span></span><br><span class="line">        logger.info(<span class="string">f'urltest for "<span class="subst">{url}</span>"'</span>)</span><br><span class="line">        <span class="comment"># noinspection PyBroadException</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            httpx.get(url, timeout=<span class="number">5</span>, follow_redirects=<span class="literal">False</span>)</span><br><span class="line">            logger.info(<span class="string">'success.'</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="keyword">except</span>:</span><br><span class="line">            logger.info(<span class="string">'failed.'</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, executable</span>):</span></span><br><span class="line">        self.executable = executable</span><br><span class="line">        self.targets = [</span><br><span class="line">            <span class="string">'https://www.baidu.com/'</span>, <span class="string">'https://www.360.cn/'</span>,</span><br><span class="line">            <span class="string">'https://qq.com/'</span>, <span class="string">'https://www.1688.com/'</span></span><br><span class="line">        ]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">click</span>(<span class="params">self, x, y</span>):</span></span><br><span class="line">        width = win32api.GetSystemMetrics(SM_CXSCREEN)</span><br><span class="line">        height = win32api.GetSystemMetrics(SM_CYSCREEN)</span><br><span class="line">        win32api.mouse_event(</span><br><span class="line">            MOUSEEVENTF_ABSOLUTE | MOUSEEVENTF_MOVE,</span><br><span class="line">            <span class="built_in">int</span>(x * <span class="number">65536</span> / width), <span class="built_in">int</span>(y * <span class="number">65536</span> / height),</span><br><span class="line">            <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">        )</span><br><span class="line">        self.delay()</span><br><span class="line">        win32api.mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line">        self.delay()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">relaunch</span>(<span class="params">self</span>):</span></span><br><span class="line">        logger.info(<span class="string">'searching window...'</span>)</span><br><span class="line">        hwnd = win32gui.FindWindow(<span class="string">'#32770'</span>, <span class="string">'校园客户端'</span>)</span><br><span class="line">        <span class="keyword">if</span> hwnd:</span><br><span class="line">            logger.info(<span class="string">'take window to foreground'</span>)</span><br><span class="line">            shell = win32com.client.Dispatch(<span class="string">'WScript.Shell'</span>)</span><br><span class="line">            shell.SendKeys(<span class="string">'%'</span>)</span><br><span class="line">            win32gui.SetForegroundWindow(hwnd)</span><br><span class="line">            self.delay()</span><br><span class="line">            left, top, right, bottom = win32gui.GetWindowRect(hwnd)</span><br><span class="line">            logger.info(<span class="string">'click "disconnect"'</span>)</span><br><span class="line">            self.click((left + right) / <span class="number">2</span>, top + <span class="number">366</span>)</span><br><span class="line">            self.delay(<span class="number">5</span>)</span><br><span class="line">            logger.info(<span class="string">'click "close window"'</span>)</span><br><span class="line">            self.click(right - <span class="number">15</span>, top + <span class="number">15</span>)</span><br><span class="line">            self.delay(<span class="number">1</span>)</span><br><span class="line">        logger.info(<span class="string">'kill remaining process...'</span>)</span><br><span class="line">        os.system(<span class="string">'taskkill /f /im ESurfingClient.exe &gt;nul 2&gt;&amp;1'</span>)</span><br><span class="line">        self.delay(<span class="number">3</span>)</span><br><span class="line">        logger.info(<span class="string">'launch client!'</span>)</span><br><span class="line">        os.system(<span class="string">f'start <span class="subst">{self.executable}</span>'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">watch</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                failed = <span class="number">0</span></span><br><span class="line">                <span class="keyword">for</span> url <span class="keyword">in</span> self.targets:</span><br><span class="line">                    <span class="keyword">if</span> self.urltest(url):</span><br><span class="line">                        <span class="keyword">continue</span></span><br><span class="line">                    failed += <span class="number">1</span></span><br><span class="line">                <span class="keyword">if</span> failed &gt;= <span class="built_in">len</span>(self.targets) / <span class="number">2</span>:</span><br><span class="line">                    self.relaunch()</span><br><span class="line">            <span class="keyword">except</span> Exception <span class="keyword">as</span> err:</span><br><span class="line">                logger.error(<span class="built_in">repr</span>(err))</span><br><span class="line">                traceback.print_exc()</span><br><span class="line"></span><br><span class="line">            logger.info(<span class="string">'wait 30 seconds...'</span>)</span><br><span class="line">            self.delay(<span class="number">30</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">logger.info(<span class="string">'wait 60 seconds...'</span>)</span><br><span class="line">sleep(<span class="number">60</span>)</span><br><span class="line">ESurfingDaemon(<span class="string">r'C:\path\to\ESurfingClient.exe'</span>).watch()</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+<p>  完事后记得在客户端设置中把开机自启和自动拨号都打开，然后在计划任务中配置 daemon 脚本也开机启动：</p>
+<p><img src="taskschd.png" alt=""></p>
+<p>  这里勾选上「以最高权限运行」：</p>
+<p><img src="taskschd-2.png" alt=""></p>
+<p>  这样 Windows 虚拟机每次启动的时候脚本都会出来检测网络状态，并尝试自动拨号；由于客户端设计得不够精良，似乎存在一定程度的内存泄漏，再配置一个任务让虚拟机每隔两天使用 <code>shutdown -r -t 0</code> 重启一次，就大功告成啦！</p>
+<h2 id="一点补充">一点补充</h2>
+<p>  本文中对旁路由的配置仅仅停留在非常初级的阶段，其实 OpenWrt 能干的事情远远不止这些。比如可以配置 DNS 给每个内网设备分配一个专属域名，通过 DoH、DoT 等技术突破 DNS 劫持和污染等等，碍于篇幅限制，本文中就不再过多介绍，还请有兴趣的读者自己摸索探究</p>
+<ul>
+<li>最后附上网络拓扑图</li>
+</ul>
+<img src="network-topology.jpg" style="width: 90%;">
+<h2 id="参考-2">参考</h2>
+<ul>
+<li>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/190244655">软路由上ESXi安装与配置（含网卡直通）-手把手小白教程 - 知乎</a></p>
+</li>
+<li>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV19q4y177v3">【老湿基】ESXi 网络虚拟化教程｜虚拟交换机｜vmknic｜vSphere 虚拟网络</a></p>
+</li>
+<li>
+<p><a target="_blank" rel="noopener" href="https://p3terx.com/archives/build-openwrt-with-github-actions.html">使用 GitHub Actions 云编译 OpenWrt - P3TERX ZONE</a></p>
+</li>
+<li>
+<p><a target="_blank" rel="noopener" href="https://sspai.com/post/59708">从听说到上手，人人都能看懂的旁路由入门指南 - 少数派</a></p>
+</li>
+<li>
+<p><a target="_blank" rel="noopener" href="https://xmanyou.com/vmware-esxi-install-openwrt/">如何在#VMWare #ESXi 6.7上安装OpenWrt虚拟机充当旁路由</a></p>
+</li>
+</ul>
+<!-- hexo injector body_end start --><script defer src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/hexo-tag-plugins@latest/lib/mindmap.min.js"></script><script async src="https://at.alicdn.com/t/font_2032782_8d5kxvn09md.js"></script><!-- hexo injector body_end end --></body></html></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Mufanc</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://blog.mufanc.xyz/posts/1524517905/">https://blog.mufanc.xyz/posts/1524517905/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.mufanc.xyz" target="_blank">星河璀璨丶凡尘點點</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/assets/images/top_img.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/posts/52971059/"><img class="next-cover" src="/assets/images/top_img.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">记录｜在 AVD 模拟器上安装 Magisk</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/assets/images/avatar.jpeg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Mufanc</div><div class="author-info__description"></div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">12</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Mufanc"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">博客全面重建中... <br/>
+旧博客地址： <a target="_blank" rel="noopener" href="https://mufanc.gitee.io/">https://mufanc.gitee.io/</a> <br/>
+文章正在逐步迁移
+</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E6%A0%A1%E5%9B%AD%E7%BD%91-%E6%A0%A1%E5%9B%AD%E5%AE%BD%E5%B8%A6"><span class="toc-number">1.</span> <span class="toc-text">关于校园网 &amp; 校园宽带</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%9A%E8%BF%87-ICS-%E7%BB%95%E8%BF%87%E5%85%B1%E4%BA%AB%E9%99%90%E5%88%B6"><span class="toc-number">2.</span> <span class="toc-text">通过 ICS 绕过共享限制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E8%AF%91-OpenWrt-%E9%85%8D%E7%BD%AE%E6%97%81%E8%B7%AF%E7%94%B1"><span class="toc-number">3.</span> <span class="toc-text">编译 OpenWrt &amp; 配置旁路由</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E6%8B%A8%E5%8F%B7%E5%92%8C%E7%BD%91%E7%BB%9C%E6%A3%80%E6%B5%8B"><span class="toc-number">4.</span> <span class="toc-text">实现自动拨号和网络检测</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E7%82%B9%E8%A1%A5%E5%85%85"><span class="toc-number">5.</span> <span class="toc-text">一点补充</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83-2"><span class="toc-number">6.</span> <span class="toc-text">参考</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/1524517905/" title="记录｜使用 ESXi 软路由构建舒适的宿舍网络环境">记录｜使用 ESXi 软路由构建舒适的宿舍网络环境</a><time datetime="2022-03-11T10:33:55.000Z" title="发表于 2022-03-11 18:33:55">2022-03-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/52971059/" title="记录｜在 AVD 模拟器上安装 Magisk">记录｜在 AVD 模拟器上安装 Magisk</a><time datetime="2022-03-05T05:36:04.000Z" title="发表于 2022-03-05 13:36:04">2022-03-05</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/3171288223/" title="iSmart 自动化进阶｜移动端的 dex 逆向与抓包分析">iSmart 自动化进阶｜移动端的 dex 逆向与抓包分析</a><time datetime="2022-03-05T04:04:55.000Z" title="发表于 2022-03-05 12:04:55">2022-03-05</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/2046525159/" title="一卡通（M1卡）破解过程及分析记录">一卡通（M1卡）破解过程及分析记录</a><time datetime="2022-03-03T16:05:59.000Z" title="发表于 2022-03-04 00:05:59">2022-03-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/1731161437/" title="发布自己的 Android Library 到 JitPack">发布自己的 Android Library 到 JitPack</a><time datetime="2022-02-18T03:21:01.000Z" title="发表于 2022-02-18 11:21:01">2022-02-18</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By Mufanc</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">本地搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script><script>(()=>{
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://hexo-twikoo-eight.vercel.app/',
+      region: '',
+      onCommentLoaded: function () {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.vemoji)'))
+      }
+    }, null))
+  }
+
+  const getCount = () => {
+    twikoo.getCommentsCount({
+      envId: 'https://hexo-twikoo-eight.vercel.app/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      document.getElementById('twikoo-count').innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const runFn = () => {
+    init()
+    GLOBAL_CONFIG_SITE.isPost && getCount()
+  }
+
+  const loadTwikoo = () => {
+    if (typeof twikoo === 'object') {
+      setTimeout(runFn,0)
+      return
+    } 
+    getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(runFn)
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script src="/assets/js/register-sw.js"></script><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/fireworks.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
