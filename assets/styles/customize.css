@@ -45,11 +45,11 @@
 }
 
 #post {
-    width: 68%
+    width: 70%
 }
 
 #aside-content {
-    width: 32%;
+    width: 30%;
 }
 
 @media screen and (max-width: 900px) {
