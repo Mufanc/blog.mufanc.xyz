@@ -1,0 +1,280 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>HNU 每日打卡脚本｜技术细节和实用技巧 | 星河璀璨丶凡尘點點</title><meta name="keywords" content="网络,自动化"><meta name="author" content="Mufanc"><meta name="copyright" content="Mufanc"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="秉持着「能让机器完成的事情，绝不人工操作」的原则，早在入学军训之时，我就萌生了使用脚本打卡的念头，并且顺利地将其实现。时至今日，脚本也算是经历了几次迭代，现将技术细节全部公开出来，与大家一起交流讨论 校方已经不再信任由帐号密码登录的会话，先前的打卡方式全部失效  初号机   初代打卡机采用了非常原始的实现方式，需要挂在 VPS 上定时运行，简单粗暴。纵观整个 web 登录打卡的过程，其实就只有">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HNU 每日打卡脚本｜技术细节和实用技巧">
+<meta property="og:url" content="https://blog.mufanc.xyz/posts/3451712385/index.html">
+<meta property="og:site_name" content="星河璀璨丶凡尘點點">
+<meta property="og:description" content="秉持着「能让机器完成的事情，绝不人工操作」的原则，早在入学军训之时，我就萌生了使用脚本打卡的念头，并且顺利地将其实现。时至今日，脚本也算是经历了几次迭代，现将技术细节全部公开出来，与大家一起交流讨论 校方已经不再信任由帐号密码登录的会话，先前的打卡方式全部失效  初号机   初代打卡机采用了非常原始的实现方式，需要挂在 VPS 上定时运行，简单粗暴。纵观整个 web 登录打卡的过程，其实就只有">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog.mufanc.xyz/assets/images/top_img.webp">
+<meta property="article:published_time" content="2022-03-20T12:20:23.000Z">
+<meta property="article:modified_time" content="2022-03-25T11:39:27.887Z">
+<meta property="article:author" content="Mufanc">
+<meta property="article:tag" content="网络">
+<meta property="article:tag" content="自动化">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.mufanc.xyz/assets/images/top_img.webp"><link rel="shortcut icon" href="/"><link rel="canonical" href="https://blog.mufanc.xyz/posts/3451712385/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="manifest" href="/manifest.json"/><link rel="apple-touch-icon" sizes="180x180" href="/assets/images/icon.png"/><link rel="icon" type="image/png" sizes="32x32" href="/assets/images/icon.png"/><link rel="icon" type="image/png" sizes="16x16" href="/assets/images/icon.png"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: {"limitDay":120,"position":"top","messagePrev":"这篇文章距离上次更新已经超过","messageNext":"天，其内容可能已过时"},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":500},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'HNU 每日打卡脚本｜技术细节和实用技巧',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-03-25 19:39:27'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/assets/styles/customize.css"><script src="/assets/js/jquery-3.6.0.min.js"></script><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/l-lin/font-awesome-animation/dist/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-tag-plugins@latest/lib/tag_plugins.min.css" media="defer" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/hexo-butterfly-tag-plugins-plus@latest/lib/carousel-touch.min.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-tag-plugins@latest/lib/mindmap.min.css" media="defer" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.0.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/assets/images/avatar.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">12</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">8</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/assets/images/top_img.webp')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">星河璀璨丶凡尘點點</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">HNU 每日打卡脚本｜技术细节和实用技巧</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-03-20T12:20:23.000Z" title="发表于 2022-03-20 20:20:23">2022-03-20</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-03-25T11:39:27.887Z" title="更新于 2022-03-25 19:39:27">2022-03-25</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>4分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="HNU 每日打卡脚本｜技术细节和实用技巧"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/posts/3451712385/#post-comment"><span id="twikoo-count"></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><html><head></head><body><p>  秉持着「能让机器完成的事情，绝不人工操作」的原则，早在入学军训之时，我就萌生了使用脚本打卡的念头，并且顺利地将其实现。时至今日，脚本也算是经历了几次迭代，现将技术细节全部公开出来，与大家一起交流讨论</p>
+<div class="note warning simple"><p><strong>校方已经不再信任由帐号密码登录的会话，先前的打卡方式全部失效</strong></p>
+</div>
+<h2 id="初号机">初号机</h2>
+<p>  初代打卡机采用了非常原始的实现方式，需要挂在 VPS 上定时运行，简单粗暴。纵观整个 web 登录打卡的过程，其实就只有 3 个步骤：</p>
+<div class="mermaid-wrap"><pre class="mermaid-src" hidden="">  
+graph LR
+    获取验证码 --token--&gt; 请求登录 --cookie--&gt; 提交打卡
+
+  </pre></div>
+<p>  在 web 端不像在微信中那样可以通过 oauth 直接登录，网页首先会请求：</p>
+<div style="width: 100%; text-align: center; font-size: 1.5rem;">
+    <a target="_blank" rel="noopener" href="https://fangkong.hnu.edu.cn/api/v1/account/getimgvcode">https://fangkong.hnu.edu.cn/api/v1/account/getimgvcode</a>
+</div>
+<p>  这个 API（可以点击试试），得到一个 Token，然后拿着这个 Token 再次请求：</p>
+<div style="width: 100%; text-align: center; font-size: 1.45rem;">
+    <span>https://fangkong.hnu.edu.cn/imagevcode?token={{Token}}</span>
+</div>
+<p>  得到验证码图片，由于验证码内容是纯数字，比较简单，直接使用 <a target="_blank" rel="noopener" href="https://github.com/tesseract-ocr/tesseract">Tesseract</a> 强行识别，也可以达到勉强能用的识别率（验证码错误 10 次左右登录成功）：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">import</span> subprocess <span class="keyword">as</span> sp</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">ocr</span>(<span class="params">image</span>):</span></span><br><span class="line">    proc = sp.Popen(</span><br><span class="line">        [<span class="string">'tesseract'</span>, <span class="string">'-'</span>, <span class="string">'-'</span>, <span class="string">'-l'</span>, <span class="string">'eng'</span>, <span class="string">'--psm'</span>, <span class="string">'7'</span>], </span><br><span class="line">        stdin=sp.PIPE, stdout=sp.PIPE, stderr=sp.PIPE</span><br><span class="line">    )</span><br><span class="line">    proc.stdin.write(image)</span><br><span class="line">    proc.stdin.close()</span><br><span class="line">    result = re.sub(<span class="string">'[^a-z0-9]'</span>, <span class="string">''</span>, proc.stdout.read().decode())</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(result) != <span class="number">4</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+<h2 id="二代机（GitHub-Actions）">二代机（GitHub Actions）</h2>
+<p>  初代机虽然已经能实现每日自动打卡，但实在是太不优雅，甚至出现过由于 VPS 欠费导致打卡中断的情况，况且把这么每日打卡和「一些其它服务」挂在同一台服务器上也很不安全，于是决定改用 GitHub Actions 定时打卡</p>
+<p>  GitHub Actions 的配置非常简单，只需要增加一个配置文件，简单写几行 yml，确定 Actions 的触发方式即可：</p>
+<figure class="highlight yaml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">Auto</span> <span class="string">Checkin</span></span><br><span class="line"><span class="attr">on:</span></span><br><span class="line">  <span class="attr">schedule:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">cron:</span> <span class="string">'*/30 20-21 * * *'</span>  <span class="comment"># 北京时间 4:00、4:30、5:00、5:30 共尝试四次（GMT+8）</span></span><br><span class="line">  <span class="attr">workflow_dispatch:</span></span><br><span class="line"></span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="attr">checkin:</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">uses:</span> <span class="string">actions/checkout@v2</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">uses:</span> <span class="string">actions/setup-python@v2</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">python-version:</span> <span class="string">'3.8'</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Install</span> <span class="string">modules</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">'pip3 install -r requirements.txt'</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Auto</span> <span class="string">checkin</span></span><br><span class="line">        <span class="attr">env:</span></span><br><span class="line">          <span class="attr">USER:</span> <span class="string">${{</span> <span class="string">secrets.USER</span> <span class="string">}}</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">python</span> <span class="string">main.py</span></span><br></pre></td></tr></tbody></table></figure>
+<p>  简简单单 20 行，声明了 Action 的触发方式（line 3 - 5），环境配置（line 11 - 14）和工作流程（line 16 - 22），非常地简单明了。此外 Actions 运行在 GitHub 的高性能容器上，脚本的稳定性能得到很好的保障</p>
+<p>  除此之外，二代机使用了几层简单的全连接神经网络代替 Tesseract 完成验证码识别，准确率较一代机得到大幅提升，单张验证码四个数字全部识别正确的概率达到约 85%，具体实现可以参考我之前的 <a href="/posts/69006241/">这篇文章</a></p>
+<h2 id="三代机（PyTorch）">三代机（PyTorch）</h2>
+<p>  如果说一代到二代机的改动让脚本质量有了一个质的飞跃，那么三代机就比较偏向于练手作了，仅仅是用 PyTorch 替代了原来 numpy 手撕的神经网络来做的验证码识别，并且上传到 GitHub 让大家方便 fork 而已：</p>
+ <div class="tag link"><a class="link-card" title="HNU-AutoCheckin" target="_blank" rel="noopener" href="https://github.com/Mufanc/HNU-AutoCheckin"><div class="left"><img src="https://github.com/favicon.ico"></div><div class="right"><p class="text">HNU-AutoCheckin</p><p class="url">https://github.com/Mufanc/HNU-AutoCheckin</p></div></a></div>
+<p>  神经网络的具体实现同样可以参考我的 <a href="/posts/4198449335/">这篇文章</a>，这里就不再赘述</p>
+<h2 id="微信-WebView-抓包">微信 WebView 抓包</h2>
+<ul>
+<li>此法需要准备好一台 Android 手机，电脑上安装 Chromium 内核的浏览器</li>
+</ul>
+<p>  基于 web 的打卡机被全面封杀之后，只能在微信中登录打卡，那么抓取微信网页中的数据包便成为了一项刚需，好在腾讯早就为我们留好了后门，只要在微信内置浏览器打开 <a target="_blank" rel="noopener" href="http://debugx5.qq.com/">http://debugx5.qq.com/</a> 这个链接，并在「信息」一栏中开启 inspector 功能即可轻松开启调试</p>
+<img src="debugx5.jpg" style="width: 60%;">
+<p>  如果报错找不到 x5 内核，可以先打开 <a target="_blank" rel="noopener" href="http://debugmm.qq.com/?forcex5=true">http://debugmm.qq.com/?forcex5=true</a> 即可切换到 x5 内核。</p>
+<hr>
+<p>  然后把手机开启 usb 调试并连接上电脑，在浏览器地址栏输入 <code>chrome://inspect</code> 打开远程调试工具，就可以看到在 Android 设备上打开的网页了：</p>
+<p><img src="chrome-inspect.png" alt=""></p>
+<p>  此时点击「inspect」按钮，就能像我们平常使用 DevTools 那样，对网页进行调试啦～</p>
+<p><img src="inspect-devtools.png" alt=""></p>
+<p>  还没结束！细心的你可能已经发现，手机和电脑上网页同步的速度非常慢，甚至根本加载不出来😰，因为默认的 inspect 调试方式是需要经过 Google 的服务器的，我们还需要对 <code>chrome://inspect</code> 这个网页本身做些手脚，才能将调试控制在本地进行</p>
+<p>  在 inspect 页按下 <kbd>F12</kbd> 以调试其本身，并切换 UA，修改其中 Chrome 的版本号为 <code>0.0.0.0</code>，可以看到下方多出了一个「inspect fallback」的选项，点击它，就可以轻松打开 DevTools 而不经过 Google 的服务器了</p>
+<p><img src="inspect-fallback.png" alt=""></p>
+<p>  每次都打开 DevTools 切换 UA 还是有些麻烦，于是我<ruby>做<rt>CV</rt></ruby>了一个小插件来把「inspect」按钮替换成「inspect fallback]，核心代码如下：</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">!(<span class="function"><span class="keyword">function</span> (<span class="params">origin</span>) </span>{</span><br><span class="line">    <span class="built_in">window</span>.Object.assign = <span class="keyword">new</span> <span class="built_in">Proxy</span>(</span><br><span class="line">        origin, {</span><br><span class="line">            <span class="function"><span class="title">apply</span>(<span class="params">target, thiz, args</span>)</span> {</span><br><span class="line">                <span class="keyword">let</span> result = <span class="built_in">Reflect</span>.apply(target, thiz, args)</span><br><span class="line">                <span class="keyword">if</span> (<span class="built_in">window</span>.populateTargets) {</span><br><span class="line">                    <span class="built_in">window</span>.Object.assign = origin</span><br><span class="line">                    <span class="built_in">Function</span>.prototype.bind = <span class="keyword">new</span> <span class="built_in">Proxy</span>(</span><br><span class="line">                        <span class="built_in">Function</span>.prototype.bind, {</span><br><span class="line">                            <span class="function"><span class="title">apply</span>(<span class="params">target, thiz, args</span>)</span> {</span><br><span class="line">                                <span class="keyword">if</span> (thiz.name == <span class="string">'sendTargetCommand'</span> &amp;&amp; args[<span class="number">1</span>] == <span class="string">'inspect'</span>) {</span><br><span class="line">                                    args[<span class="number">1</span>] = <span class="string">'inspect-fallback'</span></span><br><span class="line">                                }</span><br><span class="line">                                <span class="keyword">return</span> <span class="built_in">Reflect</span>.apply(target, thiz, args)</span><br><span class="line">                            }</span><br><span class="line">                        }</span><br><span class="line">                    )</span><br><span class="line">                }</span><br><span class="line">                <span class="keyword">return</span> result</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">    )</span><br><span class="line">})(<span class="built_in">Object</span>.assign)</span><br></pre></td></tr></tbody></table></figure>
+<p>  在 <code>chrome://flags</code> 中开启「Extensions on chrome:// URLs」选项即可使用</p>
+<p><img src="extension.png" alt=""></p>
+<!-- hexo injector body_end start --><script defer src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/hexo-tag-plugins@latest/lib/mindmap.min.js"></script><script async src="https://at.alicdn.com/t/font_2032782_8d5kxvn09md.js"></script><!-- hexo injector body_end end --></body></html></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Mufanc</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://blog.mufanc.xyz/posts/3451712385/">https://blog.mufanc.xyz/posts/3451712385/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.mufanc.xyz" target="_blank">星河璀璨丶凡尘點點</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%BD%91%E7%BB%9C/">网络</a><a class="post-meta__tags" href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/">自动化</a></div><div class="post_share"><div class="social-share" data-image="/assets/images/top_img.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/posts/1524517905/"><img class="next-cover" src="/assets/images/top_img.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">记录｜使用 ESXi 软路由构建舒适的宿舍网络环境</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/1428613111/" title="记一次 Trojan 搭建 & 配置实战"><img class="cover" src="/assets/images/top_img.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-24</div><div class="title">记一次 Trojan 搭建 & 配置实战</div></div></a></div><div><a href="/posts/1524517905/" title="记录｜使用 ESXi 软路由构建舒适的宿舍网络环境"><img class="cover" src="/assets/images/top_img.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-03-11</div><div class="title">记录｜使用 ESXi 软路由构建舒适的宿舍网络环境</div></div></a></div><div><a href="/posts/25707/" title="Qlivoid 与网课挂机"><img class="cover" src="/assets/images/top_img.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-11-10</div><div class="title">Qlivoid 与网课挂机</div></div></a></div><div><a href="/posts/3171288223/" title="iSmart 自动化进阶｜移动端的 dex 逆向与抓包分析"><img class="cover" src="/assets/images/top_img.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-03-05</div><div class="title">iSmart 自动化进阶｜移动端的 dex 逆向与抓包分析</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/assets/images/avatar.jpeg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Mufanc</div><div class="author-info__description"></div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">12</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">8</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Mufanc"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">博客全面重建中... <br/>
+旧博客地址： https://mufanc.gitee.io/ <br/>
+&emsp;&emsp;<span style="font-size: 1rem">（链接已经寄了 ⬆️）</span><br/>
+文章正在逐步迁移
+</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9D%E5%8F%B7%E6%9C%BA"><span class="toc-number">1.</span> <span class="toc-text">初号机</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E4%BB%A3%E6%9C%BA%EF%BC%88GitHub-Actions%EF%BC%89"><span class="toc-number">2.</span> <span class="toc-text">二代机（GitHub Actions）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E4%BB%A3%E6%9C%BA%EF%BC%88PyTorch%EF%BC%89"><span class="toc-number">3.</span> <span class="toc-text">三代机（PyTorch）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BE%AE%E4%BF%A1-WebView-%E6%8A%93%E5%8C%85"><span class="toc-number">4.</span> <span class="toc-text">微信 WebView 抓包</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/3451712385/" title="HNU 每日打卡脚本｜技术细节和实用技巧">HNU 每日打卡脚本｜技术细节和实用技巧</a><time datetime="2022-03-20T12:20:23.000Z" title="发表于 2022-03-20 20:20:23">2022-03-20</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/1524517905/" title="记录｜使用 ESXi 软路由构建舒适的宿舍网络环境">记录｜使用 ESXi 软路由构建舒适的宿舍网络环境</a><time datetime="2022-03-11T10:33:55.000Z" title="发表于 2022-03-11 18:33:55">2022-03-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/52971059/" title="记录｜在 AVD 模拟器上安装 Magisk">记录｜在 AVD 模拟器上安装 Magisk</a><time datetime="2022-03-05T05:36:04.000Z" title="发表于 2022-03-05 13:36:04">2022-03-05</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/3171288223/" title="iSmart 自动化进阶｜移动端的 dex 逆向与抓包分析">iSmart 自动化进阶｜移动端的 dex 逆向与抓包分析</a><time datetime="2022-03-05T04:04:55.000Z" title="发表于 2022-03-05 12:04:55">2022-03-05</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/2046525159/" title="一卡通（M1卡）破解过程及分析记录">一卡通（M1卡）破解过程及分析记录</a><time datetime="2022-03-03T16:05:59.000Z" title="发表于 2022-03-04 00:05:59">2022-03-04</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By Mufanc</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">本地搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script><script>(()=>{
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://hexo-twikoo-eight.vercel.app/',
+      region: '',
+      onCommentLoaded: function () {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.vemoji)'))
+      }
+    }, null))
+  }
+
+  const getCount = () => {
+    twikoo.getCommentsCount({
+      envId: 'https://hexo-twikoo-eight.vercel.app/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      document.getElementById('twikoo-count').innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const runFn = () => {
+    init()
+    GLOBAL_CONFIG_SITE.isPost && getCount()
+  }
+
+  const loadTwikoo = () => {
+    if (typeof twikoo === 'object') {
+      setTimeout(runFn,0)
+      return
+    } 
+    getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(runFn)
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script src="/assets/js/register-sw.js"></script><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/fireworks.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
