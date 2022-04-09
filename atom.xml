@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>星河璀璨丶凡尘點點</title>
+  
+  <subtitle>永不落幕の前奏詩</subtitle>
+  <link href="https://blog.mufanc.xyz/atom.xml" rel="self"/>
+  
+  <link href="https://blog.mufanc.xyz/"/>
+  <updated>2022-04-07T07:46:06.115Z</updated>
+  <id>https://blog.mufanc.xyz/</id>
+  
+  <author>
+    <name>Mufanc</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>总是错过消息？来做一个 Android 进程锁！</title>
+    <link href="https://blog.mufanc.xyz/posts/2333714321/"/>
+    <id>https://blog.mufanc.xyz/posts/2333714321/</id>
+    <published>2022-04-06T07:08:32.000Z</published>
+    <updated>2022-04-07T07:46:06.115Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;h2 id=&quot;背景&quot;&gt;背景&lt;/h2&gt;
+&lt;p&gt;  我们在使用手机时，难免需要对某些应用做后台保活，比如社交软件、音乐播放器、VPN 代理、广告跳过工具等等，但许多国内 ROM 厂商却将 Android 的「最近任务」做成了「任务列</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>HNU 每日打卡脚本｜技术细节和实用技巧</title>
+    <link href="https://blog.mufanc.xyz/posts/3451712385/"/>
+    <id>https://blog.mufanc.xyz/posts/3451712385/</id>
+    <published>2022-03-20T12:20:23.000Z</published>
+    <updated>2022-03-25T11:39:27.887Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;p&gt;  秉持着「能让机器完成的事情，绝不人工操作」的原则，早在入学军训之时，我就萌生了使用脚本打卡的念头，并且顺利地将其实现。时至今日，脚本也算是经历了几次迭代，现将技术细节全部公开出来，与大家一起交流讨论&lt;/p&gt;
+&lt;div c</summary>
+      
+    
+    
+    
+    
+    <category term="网络" scheme="https://blog.mufanc.xyz/tags/%E7%BD%91%E7%BB%9C/"/>
+    
+    <category term="自动化" scheme="https://blog.mufanc.xyz/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>记录｜使用 ESXi 软路由构建舒适的宿舍网络环境</title>
+    <link href="https://blog.mufanc.xyz/posts/1524517905/"/>
+    <id>https://blog.mufanc.xyz/posts/1524517905/</id>
+    <published>2022-03-11T10:33:55.000Z</published>
+    <updated>2022-03-22T15:30:18.319Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;p&gt;  学校虽有提供现成的校园网和宽带服务，但我这么一个折腾狂魔，免不了要对网络环境进行一番改造，遂斥巨资购入了一台搭载 ESXi 系统的工控机来作为软路由使用&lt;/p&gt;
+&lt;h2 id=&quot;关于校园网-校园宽带&quot;&gt;关于校园网 &amp;am</summary>
+      
+    
+    
+    
+    <category term="网络运维" scheme="https://blog.mufanc.xyz/categories/%E7%BD%91%E7%BB%9C%E8%BF%90%E7%BB%B4/"/>
+    
+    
+    <category term="网络" scheme="https://blog.mufanc.xyz/tags/%E7%BD%91%E7%BB%9C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>记录｜在 AVD 模拟器上安装 Magisk</title>
+    <link href="https://blog.mufanc.xyz/posts/52971059/"/>
+    <id>https://blog.mufanc.xyz/posts/52971059/</id>
+    <published>2022-03-05T05:36:04.000Z</published>
+    <updated>2022-03-05T17:07:36.276Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;p&gt;  在 Android 开发过程中，免不了要将应用丢到设备上测试。如果使用实体设备，每次都要配置 ADB 连接，非常麻烦；甚至在开发某些 Xposed 模块时，需要将设备反复重启，大大降低了调试效率。如果能将这些工作都转移到</summary>
+      
+    
+    
+    
+    <category term="环境运维" scheme="https://blog.mufanc.xyz/categories/%E7%8E%AF%E5%A2%83%E8%BF%90%E7%BB%B4/"/>
+    
+    
+    <category term="Android" scheme="https://blog.mufanc.xyz/tags/Android/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>iSmart 自动化进阶｜移动端的 dex 逆向与抓包分析</title>
+    <link href="https://blog.mufanc.xyz/posts/3171288223/"/>
+    <id>https://blog.mufanc.xyz/posts/3171288223/</id>
+    <published>2022-03-05T04:04:55.000Z</published>
+    <updated>2022-03-25T11:40:36.724Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;p&gt;  经过一年多的努力，iSmart 的自动化已经能够基本实现，然而现在的实现方式总的来说还是一种 dirty fix，无法完全摆脱客户端的束缚，实在是太不优雅。而我的主力 PC 机也已经换成 linux 系统，刷 iSmar</summary>
+      
+    
+    
+    
+    
+    <category term="自动化" scheme="https://blog.mufanc.xyz/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/"/>
+    
+    <category term="Xposed" scheme="https://blog.mufanc.xyz/tags/Xposed/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>一卡通（M1卡）破解过程及分析记录</title>
+    <link href="https://blog.mufanc.xyz/posts/2046525159/"/>
+    <id>https://blog.mufanc.xyz/posts/2046525159/</id>
+    <published>2022-03-03T16:05:59.000Z</published>
+    <updated>2022-03-25T11:43:19.251Z</updated>
+    
+    
+    <summary type="html">我们日常使用的 IC 卡，真的足够安全吗？</summary>
+    
+    
+    
+    <category term="信安攻防" scheme="https://blog.mufanc.xyz/categories/%E4%BF%A1%E5%AE%89%E6%94%BB%E9%98%B2/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>发布自己的 Android Library 到 JitPack</title>
+    <link href="https://blog.mufanc.xyz/posts/1731161437/"/>
+    <id>https://blog.mufanc.xyz/posts/1731161437/</id>
+    <published>2022-02-18T03:21:01.000Z</published>
+    <updated>2022-02-21T14:45:04.878Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;p&gt;  Kotlin 是一门十分简洁的静态类型语言，同时拥有非常优秀的扩展性，与 Java 相比，使用 Kotlin 进行 Android 开发能有效减少代码量。下面以一个常用的 User 类为例，简单展示下 Kotlin 的简</summary>
+      
+    
+    
+    
+    <category term="环境运维" scheme="https://blog.mufanc.xyz/categories/%E7%8E%AF%E5%A2%83%E8%BF%90%E7%BB%B4/"/>
+    
+    
+    <category term="Android" scheme="https://blog.mufanc.xyz/tags/Android/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>进阶｜使用 PyTorch 完成复杂验证码的识别</title>
+    <link href="https://blog.mufanc.xyz/posts/4198449335/"/>
+    <id>https://blog.mufanc.xyz/posts/4198449335/</id>
+    <published>2022-01-29T07:22:50.000Z</published>
+    <updated>2022-03-25T11:37:04.351Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;p&gt;  早在新生报到时，我就萌生了识别验证码并模拟登录的想法，无奈当时技术有限，最终未能达到目标。去年用 numpy 手写打卡系统验证码识别器后，&lt;a href=&quot;https://github.com/Mufanc/HNU-Au</summary>
+      
+    
+    
+    
+    <category term="工程实战" scheme="https://blog.mufanc.xyz/categories/%E5%B7%A5%E7%A8%8B%E5%AE%9E%E6%88%98/"/>
+    
+    
+    <category term="机器学习" scheme="https://blog.mufanc.xyz/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+    <category term="验证码" scheme="https://blog.mufanc.xyz/tags/%E9%AA%8C%E8%AF%81%E7%A0%81/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>在 Kubuntu 系统中启用 KVM 并通过 WinApps 使用 TIM</title>
+    <link href="https://blog.mufanc.xyz/posts/2665227836/"/>
+    <id>https://blog.mufanc.xyz/posts/2665227836/</id>
+    <published>2022-01-26T15:20:27.000Z</published>
+    <updated>2022-02-11T15:50:45.933Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;p&gt;  在 linux 系统中优雅地使用 QQ、TIM 一直是广大 linux 爱好者的一大痛点。Deepin wine 版的 QQ 过于老旧，甚至已经无法登录；而第三方客户端长期无人维护，各种不稳定，甚至随时有作者跑路的可能；</summary>
+      
+    
+    
+    
+    <category term="环境运维" scheme="https://blog.mufanc.xyz/categories/%E7%8E%AF%E5%A2%83%E8%BF%90%E7%BB%B4/"/>
+    
+    
+    <category term="KVM" scheme="https://blog.mufanc.xyz/tags/KVM/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>记一次 Trojan 搭建 &amp; 配置实战</title>
+    <link href="https://blog.mufanc.xyz/posts/1428613111/"/>
+    <id>https://blog.mufanc.xyz/posts/1428613111/</id>
+    <published>2022-01-24T10:47:35.000Z</published>
+    <updated>2022-03-25T11:43:16.859Z</updated>
+    
+    
+    <summary type="html">继 SSR、v2ray 后的又一款 GFW 穿透工具</summary>
+    
+    
+    
+    <category term="网络运维" scheme="https://blog.mufanc.xyz/categories/%E7%BD%91%E7%BB%9C%E8%BF%90%E7%BB%B4/"/>
+    
+    
+    <category term="网络" scheme="https://blog.mufanc.xyz/tags/%E7%BD%91%E7%BB%9C/"/>
+    
+  </entry>
+  
+</feed>
