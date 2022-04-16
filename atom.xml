@@ -6,7 +6,7 @@
   <link href="https://blog.mufanc.xyz/atom.xml" rel="self"/>
   
   <link href="https://blog.mufanc.xyz/"/>
-  <updated>2022-04-07T07:46:06.115Z</updated>
+  <updated>2022-04-16T08:35:40.141Z</updated>
   <id>https://blog.mufanc.xyz/</id>
   
   <author>
@@ -15,6 +15,21 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>工训 Linux 计算机串口使用｜软件部分（Any%）</title>
+    <link href="https://blog.mufanc.xyz/posts/698724079/"/>
+    <id>https://blog.mufanc.xyz/posts/698724079/</id>
+    <published>2022-04-15T13:29:01.000Z</published>
+    <updated>2022-04-16T08:35:40.141Z</updated>
+    
+    
+    <summary type="html">心得分享 &amp; 代码实现 &amp; 邪道速通，应该勉强算得上半个实验指导书？</summary>
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>总是错过消息？来做一个 Android 进程锁！</title>
@@ -207,25 +222,6 @@
     
     
     <category term="KVM" scheme="https://blog.mufanc.xyz/tags/KVM/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>记一次 Trojan 搭建 &amp; 配置实战</title>
-    <link href="https://blog.mufanc.xyz/posts/1428613111/"/>
-    <id>https://blog.mufanc.xyz/posts/1428613111/</id>
-    <published>2022-01-24T10:47:35.000Z</published>
-    <updated>2022-03-25T11:43:16.859Z</updated>
-    
-    
-    <summary type="html">继 SSR、v2ray 后的又一款 GFW 穿透工具</summary>
-    
-    
-    
-    <category term="网络运维" scheme="https://blog.mufanc.xyz/categories/%E7%BD%91%E7%BB%9C%E8%BF%90%E7%BB%B4/"/>
-    
-    
-    <category term="网络" scheme="https://blog.mufanc.xyz/tags/%E7%BD%91%E7%BB%9C/"/>
     
   </entry>
   
