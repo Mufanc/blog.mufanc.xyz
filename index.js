@@ -21,18 +21,21 @@ const fs = require('fs').promises
         // 生成总的友链 json
         let files = (await fs.readdir('./link/sites')).filter(str => !str.startsWith('.'))
         let json = JSON.parse((await fs.readFile('./link/template.json')).toString())
+        let flinks = []
         let target;
         for (let obj of json) {
             if ('gh-actions' in obj) {
                 target = obj;
                 delete target['gh-actions']
-                break;
+                break
             }
         }
         for (let file of files) {
             let site = JSON.parse((await fs.readFile(`./link/sites/${file}`)).toString())
             target['link_list'].push(site)
+            flinks.push(site['link'])
         }
+        await fs.writeFile('flinks.json', JSON.stringify(flinks))
         await fs.writeFile('links.json', JSON.stringify(json))
 
         if (body) {
