@@ -6,7 +6,7 @@
   <link href="https://blog.mufanc.xyz/atom.xml" rel="self"/>
   
   <link href="https://blog.mufanc.xyz/"/>
-  <updated>2022-04-16T16:42:09.253Z</updated>
+  <updated>2022-05-08T13:24:39.632Z</updated>
   <id>https://blog.mufanc.xyz/</id>
   
   <author>
@@ -15,6 +15,24 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>C++ 宏定义使用手册</title>
+    <link href="https://blog.mufanc.xyz/posts/3527061138/"/>
+    <id>https://blog.mufanc.xyz/posts/3527061138/</id>
+    <published>2022-05-08T12:47:06.000Z</published>
+    <updated>2022-05-08T13:24:39.632Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;p&gt;  在 C++ 中，可以通过宏定义命令 &lt;code&gt;#define&lt;/code&gt; 简化代码编写过程，为开发提供极大的便利，但初学时我们常常不能理解该命令的本质，导致代码出现逻辑错误或者无法通过编译。本文总结了一些宏定义的常见</summary>
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>工训 Linux 计算机串口使用｜软件部分（Any%）</title>
@@ -200,28 +218,6 @@
     <category term="机器学习" scheme="https://blog.mufanc.xyz/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
     
     <category term="验证码" scheme="https://blog.mufanc.xyz/tags/%E9%AA%8C%E8%AF%81%E7%A0%81/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>在 Kubuntu 系统中启用 KVM 并通过 WinApps 使用 TIM</title>
-    <link href="https://blog.mufanc.xyz/posts/2665227836/"/>
-    <id>https://blog.mufanc.xyz/posts/2665227836/</id>
-    <published>2022-01-26T15:20:27.000Z</published>
-    <updated>2022-02-11T15:50:45.933Z</updated>
-    
-    
-      
-      
-    <summary type="html">&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;p&gt;  在 linux 系统中优雅地使用 QQ、TIM 一直是广大 linux 爱好者的一大痛点。Deepin wine 版的 QQ 过于老旧，甚至已经无法登录；而第三方客户端长期无人维护，各种不稳定，甚至随时有作者跑路的可能；</summary>
-      
-    
-    
-    
-    <category term="环境运维" scheme="https://blog.mufanc.xyz/categories/%E7%8E%AF%E5%A2%83%E8%BF%90%E7%BB%B4/"/>
-    
-    
-    <category term="KVM" scheme="https://blog.mufanc.xyz/tags/KVM/"/>
     
   </entry>
   
