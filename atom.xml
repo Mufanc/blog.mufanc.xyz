@@ -6,7 +6,7 @@
   <link href="https://blog.mufanc.xyz/atom.xml" rel="self"/>
   
   <link href="https://blog.mufanc.xyz/"/>
-  <updated>2022-05-08T13:24:39.632Z</updated>
+  <updated>2022-05-08T13:25:08.699Z</updated>
   <id>https://blog.mufanc.xyz/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://blog.mufanc.xyz/posts/3527061138/"/>
     <id>https://blog.mufanc.xyz/posts/3527061138/</id>
     <published>2022-05-08T12:47:06.000Z</published>
-    <updated>2022-05-08T13:24:39.632Z</updated>
+    <updated>2022-05-08T13:25:08.699Z</updated>
     
     
       
@@ -39,7 +39,7 @@
     <link href="https://blog.mufanc.xyz/posts/698724079/"/>
     <id>https://blog.mufanc.xyz/posts/698724079/</id>
     <published>2022-04-15T13:29:01.000Z</published>
-    <updated>2022-04-16T16:42:09.253Z</updated>
+    <updated>2022-05-09T17:56:58.636Z</updated>
     
     
     <summary type="html">心得分享 &amp; 代码实现 &amp; 邪道速通，应该勉强算得上半个实验指导书？</summary>
@@ -85,9 +85,9 @@
     
     
     
-    <category term="网络" scheme="https://blog.mufanc.xyz/tags/%E7%BD%91%E7%BB%9C/"/>
-    
     <category term="自动化" scheme="https://blog.mufanc.xyz/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/"/>
+    
+    <category term="网络" scheme="https://blog.mufanc.xyz/tags/%E7%BD%91%E7%BB%9C/"/>
     
   </entry>
   
