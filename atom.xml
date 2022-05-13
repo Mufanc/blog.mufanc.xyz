@@ -6,7 +6,7 @@
   <link href="https://blog.mufanc.xyz/atom.xml" rel="self"/>
   
   <link href="https://blog.mufanc.xyz/"/>
-  <updated>2022-05-12T12:33:50.808Z</updated>
+  <updated>2022-05-13T11:29:24.601Z</updated>
   <id>https://blog.mufanc.xyz/</id>
   
   <author>
@@ -15,6 +15,24 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Screeps: Arena 初体验</title>
+    <link href="https://blog.mufanc.xyz/posts/2630826759/"/>
+    <id>https://blog.mufanc.xyz/posts/2630826759/</id>
+    <published>2022-05-12T14:39:50.000Z</published>
+    <updated>2022-05-13T11:29:24.601Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;p&gt;  在朋友推荐下入坑了这款 RTS 神作，与传统 RTS 游戏不同，Screeps: Arena 使用真 · JavaScript 语言编写脚本来控制你的机器人（Creep）与对方机器人战斗，一旦战斗开始，便无法再做任何输入</summary>
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>C++ 宏定义使用手册</title>
@@ -200,30 +218,6 @@
     
     
     <category term="Android" scheme="https://blog.mufanc.xyz/tags/Android/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>进阶｜使用 PyTorch 完成复杂验证码的识别</title>
-    <link href="https://blog.mufanc.xyz/posts/4198449335/"/>
-    <id>https://blog.mufanc.xyz/posts/4198449335/</id>
-    <published>2022-01-29T07:22:50.000Z</published>
-    <updated>2022-03-25T11:37:04.351Z</updated>
-    
-    
-      
-      
-    <summary type="html">&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;p&gt;  早在新生报到时，我就萌生了识别验证码并模拟登录的想法，无奈当时技术有限，最终未能达到目标。去年用 numpy 手写打卡系统验证码识别器后，&lt;a href=&quot;https://github.com/Mufanc/HNU-Au</summary>
-      
-    
-    
-    
-    <category term="工程实战" scheme="https://blog.mufanc.xyz/categories/%E5%B7%A5%E7%A8%8B%E5%AE%9E%E6%88%98/"/>
-    
-    
-    <category term="机器学习" scheme="https://blog.mufanc.xyz/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
-    
-    <category term="验证码" scheme="https://blog.mufanc.xyz/tags/%E9%AA%8C%E8%AF%81%E7%A0%81/"/>
     
   </entry>
   
