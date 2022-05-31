@@ -1,0 +1,20 @@
+.error-img {
+    background-color: #49b1f5;
+}
+
+.error-img img {
+    transform: scale(0.8);
+    object-fit: contain !important;
+    background-color: transparent !important;
+    animation: 2s floating infinite;
+}
+
+@keyframes floating {
+    0%, 100% {
+        transform: scale(0.8) translateY(5%);
+    }
+
+    50% {
+        transform: scale(0.8) translateY(-5%);
+    }
+}
