@@ -6,7 +6,7 @@
   <link href="https://blog.mufanc.xyz/atom.xml" rel="self"/>
   
   <link href="https://blog.mufanc.xyz/"/>
-  <updated>2022-05-15T09:48:38.701Z</updated>
+  <updated>2022-06-26T09:12:07.174Z</updated>
   <id>https://blog.mufanc.xyz/</id>
   
   <author>
@@ -15,6 +15,24 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>译｜Bash-Oneliner（随缘更新）</title>
+    <link href="https://blog.mufanc.xyz/posts/1883065385/"/>
+    <id>https://blog.mufanc.xyz/posts/1883065385/</id>
+    <published>2022-05-24T16:14:48.000Z</published>
+    <updated>2022-06-26T09:12:07.174Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;p&gt;  偶然在 GitHub 刷到了 &lt;a href=&quot;https://github.com/onceupon/Bash-Oneliner&quot;&gt;这个项目&lt;/a&gt;，里面有各种各样的 bash 使用小技巧，但是它真的很长😰，以至于我</summary>
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>实战：「大学搜题酱」应用逆向与答案提取</title>
@@ -194,23 +212,6 @@
     <category term="自动化" scheme="https://blog.mufanc.xyz/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/"/>
     
     <category term="Xposed" scheme="https://blog.mufanc.xyz/tags/Xposed/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>一卡通（M1卡）破解过程及分析记录</title>
-    <link href="https://blog.mufanc.xyz/posts/2046525159/"/>
-    <id>https://blog.mufanc.xyz/posts/2046525159/</id>
-    <published>2022-03-03T16:05:59.000Z</published>
-    <updated>2022-03-25T11:43:19.251Z</updated>
-    
-    
-    <summary type="html">我们日常使用的 IC 卡，真的足够安全吗？</summary>
-    
-    
-    
-    <category term="信安攻防" scheme="https://blog.mufanc.xyz/categories/%E4%BF%A1%E5%AE%89%E6%94%BB%E9%98%B2/"/>
-    
     
   </entry>
   
