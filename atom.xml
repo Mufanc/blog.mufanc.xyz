@@ -6,7 +6,7 @@
   <link href="https://blog.mufanc.xyz/atom.xml" rel="self"/>
   
   <link href="https://blog.mufanc.xyz/"/>
-  <updated>2022-06-26T09:12:07.174Z</updated>
+  <updated>2022-06-28T16:22:25.665Z</updated>
   <id>https://blog.mufanc.xyz/</id>
   
   <author>
@@ -15,6 +15,24 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>基于内存搜索的 Zygisk 注入检测方案</title>
+    <link href="https://blog.mufanc.xyz/posts/2752488453/"/>
+    <id>https://blog.mufanc.xyz/posts/2752488453/</id>
+    <published>2022-06-28T14:26:37.000Z</published>
+    <updated>2022-06-28T16:22:25.665Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;p&gt;  对我们开发者而言，在写一些安全性要求较高的项目时，自然不希望自己的代码被别人随意注入修改。比如在 Android 方面，现在已经有很多成熟的 Hook 框架比如 Xposed、xHook、ByteHook、Frida 等</summary>
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>译｜Bash-Oneliner（随缘更新）</title>
@@ -190,28 +208,6 @@
     
     
     <category term="Android" scheme="https://blog.mufanc.xyz/tags/Android/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>iSmart 自动化进阶｜移动端的 dex 逆向与抓包分析</title>
-    <link href="https://blog.mufanc.xyz/posts/3171288223/"/>
-    <id>https://blog.mufanc.xyz/posts/3171288223/</id>
-    <published>2022-03-05T04:04:55.000Z</published>
-    <updated>2022-03-25T11:40:36.724Z</updated>
-    
-    
-      
-      
-    <summary type="html">&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;p&gt;  经过一年多的努力，iSmart 的自动化已经能够基本实现，然而现在的实现方式总的来说还是一种 dirty fix，无法完全摆脱客户端的束缚，实在是太不优雅。而我的主力 PC 机也已经换成 linux 系统，刷 iSmar</summary>
-      
-    
-    
-    
-    
-    <category term="自动化" scheme="https://blog.mufanc.xyz/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/"/>
-    
-    <category term="Xposed" scheme="https://blog.mufanc.xyz/tags/Xposed/"/>
     
   </entry>
   
