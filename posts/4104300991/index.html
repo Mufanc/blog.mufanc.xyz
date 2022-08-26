@@ -1,0 +1,346 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>理解 Linux 的「挂载命名空间」机制 | 星河璀璨丶凡尘點點</title><meta name="author" content="Mufanc"><meta name="copyright" content="Mufanc"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="前言   经常玩机的小伙伴应该都能注意到，Magisk 中有一项设置叫「挂载命名空间模式」，里面有三个不明觉厉的选项：「全局命名空间」、「继承命名空间」和「独立命名空间」。初看这些选项，你可能会感到一头雾水，但是相信读完本文之后，你就能够对这些选项的作用，以及挂载命名空间的机制拥有一个基本的认识    在本文中，你将了解到：  挂载、挂载点 和 虚拟文件系统（VFS） 什么是挂载命名空间？ 挂载命">
+<meta property="og:type" content="article">
+<meta property="og:title" content="理解 Linux 的「挂载命名空间」机制">
+<meta property="og:url" content="https://blog.mufanc.xyz/posts/4104300991/index.html">
+<meta property="og:site_name" content="星河璀璨丶凡尘點點">
+<meta property="og:description" content="前言   经常玩机的小伙伴应该都能注意到，Magisk 中有一项设置叫「挂载命名空间模式」，里面有三个不明觉厉的选项：「全局命名空间」、「继承命名空间」和「独立命名空间」。初看这些选项，你可能会感到一头雾水，但是相信读完本文之后，你就能够对这些选项的作用，以及挂载命名空间的机制拥有一个基本的认识    在本文中，你将了解到：  挂载、挂载点 和 虚拟文件系统（VFS） 什么是挂载命名空间？ 挂载命">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog.mufanc.xyz/assets/images/top_img.webp">
+<meta property="article:published_time" content="2022-07-05T18:14:49.000Z">
+<meta property="article:modified_time" content="2022-07-26T15:55:39.000Z">
+<meta property="article:author" content="Mufanc">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.mufanc.xyz/assets/images/top_img.webp"><link rel="shortcut icon" href="/img/favicon.ico"><link rel="canonical" href="https://blog.mufanc.xyz/posts/4104300991/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="manifest" href="/manifest.json"/><link rel="apple-touch-icon" sizes="180x180" href="/assets/images/icon.png"/><link rel="icon" type="image/png" sizes="32x32" href="/assets/images/icon.png"/><link rel="icon" type="image/png" sizes="16x16" href="/assets/images/icon.png"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: {"limitDay":120,"position":"top","messagePrev":"这篇文章距离上次更新已经超过","messageNext":"天，其内容可能已过时"},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":500},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '理解 Linux 的「挂载命名空间」机制',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-07-26 23:55:39'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/assets/styles/customize.css"><link rel="stylesheet" href="/assets/styles/404.css"><script src="/assets/js/jquery-3.6.0.min.js"></script><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/l-lin/font-awesome-animation/dist/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-tag-plugins@latest/lib/tag_plugins.min.css" media="defer" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/hexo-butterfly-tag-plugins-plus@latest/lib/carousel-touch.min.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-tag-plugins@latest/lib/mindmap.min.css" media="defer" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="星河璀璨丶凡尘點點" type="application/atom+xml">
+</head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/assets/images/avatar.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">24</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">9</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa-solid fa-book-bookmark"></i><span> 链接</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></li><li><a class="site-page child" href="/fcircle/"><i class="fa-fw fas fa-user-group"></i><span> 朋友圈</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/assets/images/top_img.webp')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">星河璀璨丶凡尘點點</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa-solid fa-book-bookmark"></i><span> 链接</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></li><li><a class="site-page child" href="/fcircle/"><i class="fa-fw fas fa-user-group"></i><span> 朋友圈</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">理解 Linux 的「挂载命名空间」机制</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-07-05T18:14:49.000Z" title="发表于 2022-07-06 02:14:49">2022-07-06</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-07-26T15:55:39.000Z" title="更新于 2022-07-26 23:55:39">2022-07-26</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.7k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>9分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="理解 Linux 的「挂载命名空间」机制"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/posts/4104300991/#post-comment"><span id="twikoo-count"></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><html><head></head><body><h2 id="前言">前言</h2>
+<p>  经常玩机的小伙伴应该都能注意到，Magisk 中有一项设置叫「挂载命名空间模式」，里面有三个不明觉厉的选项：「全局命名空间」、「继承命名空间」和「独立命名空间」。初看这些选项，你可能会感到一头雾水，但是相信读完本文之后，你就能够对这些选项的作用，以及挂载命名空间的机制拥有一个基本的认识</p>
+<img src="magisk.jpg" style="width:60%;">
+<p>  在本文中，你将了解到：</p>
+<ul>
+<li>挂载、挂载点 和 虚拟文件系统（VFS）</li>
+<li>什么是挂载命名空间？</li>
+<li>挂载命名空间的共享子树机制</li>
+<li>传播类型如何影响挂载？</li>
+</ul>
+<h2 id="关于「挂载」">关于「挂载」</h2>
+<h3 id="何为「挂载」？">何为「挂载」？</h3>
+<p>  <a target="_blank" rel="noopener" href="https://man7.org/linux/man-pages/man8/mount.8.html#DESCRIPTION">手册</a>中对于挂载的描述是这样的：</p>
+<blockquote>
+<p>All files accessible in a Unix system are arranged in one big tree, the file hierarchy, rooted at /. These files can be spread out over several devices. The mount command serves to attach the filesystem found on some device to the big file tree. Conversely, the umount(8) command will detach it again. The filesystem is used to control how data is stored on the device or provided in a virtual way by network or other services.</p>
+</blockquote>
+<p>  大致意思是说，所有可被访问的文件都位于一棵以 <code>/</code> 为根的「文件树」上，而这些文件可能分布在不同的文件系统和设备，所谓「挂载」操作就是将设备上的文件系统附加到某个目录上，使得数据源可以在系统中使用。</p>
+<p>  而这棵「文件树」就是 Linux 的 VFS 虚拟文件系统，它作为一个抽象层，使得其上的应用程序可以使用统一的接口访问不同的文件系统：</p>
+<p><img src="vfs.jpg" alt=""></p>
+<p>  下面这张图就十分形象地体现了挂载的本质：灰色和粉色的矩形表示了两个块设备（Block Device），箭头和标签组成了 VFS 的树状文件结构，而白色的圆圈就代表着挂载点。图中将粉色文件系统（可能是一块硬盘）中的根节点 <code>/</code> 挂载到了 VFS 的 <code>/home</code> 目录下，此后对 <code>/home</code> 的所有读写操作都将发生在被挂载的设备上（即图中的粉色文件系统）</p>
+<p><img src="mount.jpg" alt=""></p>
+<h3 id="挂载的一些特性">挂载的一些特性</h3>
+<p>  当我们挂载文件系统到一个非空的目录上时，其中本来的文件就像被遮盖隐藏了一样，在将挂载卸除之前，任何对该目录的访问都只能访问到挂载的文件系统内文件；当挂载卸除之后，原来的内容又会显现出来</p>
+<p>  挂载点之间是存在父子关系的，对于 VFS 上的一个目录，挂载点按挂载的先后顺序形成父子关系，即最后一个覆盖某一路径的挂载点将成为新挂载上来挂载点的父亲。通过一个简单的脚本，我们可以查看当前命名空间各个挂载点的关系：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> defaultdict</span><br><span class="line"></span><br><span class="line">root = <span class="literal">None</span></span><br><span class="line">children = defaultdict(<span class="built_in">list</span>)</span><br><span class="line">record = {}</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">dfs</span>(<span class="params">root, depth=<span class="number">0</span></span>):</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f'<span class="subst">{<span class="string">"+   "</span> * depth}</span><span class="subst">{record[root][<span class="number">0</span>]}</span> on <span class="subst">{record[root][<span class="number">1</span>]}</span>'</span>)</span><br><span class="line">    <span class="keyword">for</span> child <span class="keyword">in</span> children[root]:</span><br><span class="line">        dfs(child, depth + <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">'/proc/self/mountinfo'</span>, <span class="string">'r'</span>) <span class="keyword">as</span> fp:</span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> fp.readlines():</span><br><span class="line">        mount_id, parent_id, mount_point, mount_src = re.findall(</span><br><span class="line">            <span class="string">r'(\d+) (\d+) \S+ \S+ (\S+) .* - \S+ (\S+) .*'</span>, line</span><br><span class="line">        )[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> mount_point == <span class="string">'/'</span>:</span><br><span class="line">            root = parent_id</span><br><span class="line"></span><br><span class="line">        record[mount_id] = (mount_src, mount_point)</span><br><span class="line">        children[parent_id].append(mount_id)</span><br><span class="line"></span><br><span class="line">dfs(children[root][<span class="number">0</span>])</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+<h3 id="绑定挂载">绑定挂载</h3>
+<p>  绑定挂载（bind mount）是一种特殊的挂载操作，它可以将文件层次结构的一部分重新挂载到其它地方。简单做个实验，我们现在有这样的文件结构：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── A</span><br><span class="line">│&nbsp;&nbsp; └── a.txt</span><br><span class="line">├── B</span><br><span class="line">│&nbsp;&nbsp; └── b.txt</span><br><span class="line">└── C</span><br><span class="line">    └── c.txt</span><br></pre></td></tr></tbody></table></figure>
+<p>  然后执行下面的命令：</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo mount --<span class="built_in">bind</span> A C</span><br><span class="line">tree</span><br></pre></td></tr></tbody></table></figure>
+<p>  此时文件树的结构变成了下图所示的样子：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── A</span><br><span class="line">│&nbsp;&nbsp; └── a.txt</span><br><span class="line">├── B</span><br><span class="line">│&nbsp;&nbsp; └── b.txt</span><br><span class="line">└── C</span><br><span class="line">    └── a.txt</span><br></pre></td></tr></tbody></table></figure>
+<p>  可以看到文件夹 <code>C</code> 下的文件已经变成了 <code>a.txt</code>，而此时如果我们尝试在文件夹 <code>C</code> 下新增一个文件，然后再次打印目录树：</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> 233333 &gt; C/flag.txt</span><br><span class="line">tree</span><br><span class="line">cat A/flag.txt</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">.      </span><br><span class="line">├── A</span><br><span class="line">│&nbsp;&nbsp; ├── a.txt</span><br><span class="line">│&nbsp;&nbsp; └── flag.txt</span><br><span class="line">├── B</span><br><span class="line">│&nbsp;&nbsp; └── b.txt</span><br><span class="line">└── C</span><br><span class="line">    ├── a.txt</span><br><span class="line">    └── flag.txt</span><br></pre></td></tr></tbody></table></figure>
+<p>  可以发现对 <code>C</code> 的操作直接同步到了目录 <code>A</code> 下，此时对目录 <code>C</code> 的操作就好像是直接在操作目录 <code>A</code> 一样，这就是绑定挂载的神奇之处。此外，绑定挂载允许选择一个只读文件系统中的目录作为挂载点，Magisk 正是利用了这一特性来实现对系统文件的替换和修改。</p>
+<h2 id="挂载命名空间">挂载命名空间</h2>
+<h3 id="概述">概述</h3>
+<p>  刚才我们介绍了一些挂载的规则和特性，但这依然无法解释为何在不同进程的视角下 VFS 文件树可以拥有不同的结构，所以下面正式引出挂载命名空间的概念：</p>
+<p>   这里<a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1531989#%E5%BC%95%E8%A8%80">摘录</a>一段对挂载命名空间的介绍：</p>
+<blockquote>
+<p>  挂载命名空间是第一个添加到 Linux 的命名空间类型，出现在 2002 年的 Linux 2.4.19 中。它们可隔离命名空间中的进程所看到的挂载点列表。换言之，每个挂载命名空间都有自己的挂载点列表，这意味着不同命名空间中的进程可以看到并操作单个目录层次结构的不同视图。</p>
+<p>  当系统首次启动时，有一个单一的挂载命名空间，即所谓的“初始命名空间”。带 CLONE_NEWNS 标志的 clone()（在新命名空间中创建新子进程）或 unshare()（将调用方移到新命名空间中）可创建新的挂载命名空间。当新的装挂载名空间被创建时，它将接收 clone() 或 unshare() 的调用者的命名空间的挂载点列表的拷贝。</p>
+<p>  在 clone() 或 unshare() 之后，可以在每个命名空间中独立地添加和删除挂载点（通过 mount() 和 umount() ）。对挂载点列表的更改（默认情况下）仅对进程所在的挂载命名空间中的进程可见；这些更改在其他挂载命名空间中不可见。</p>
+<p>  挂载命名空间有多种用途。例如，可以提供文件系统的每个用户视图。还有其它用途，可以为新的 PID 命名空间挂载 /proc 文件系统，而不会对其它进程造成副作用，还可通过 chroot() 将进程隔离到单个目录层次结构中。在某些用例中，挂载命名空间与绑定挂载一起使用。</p>
+</blockquote>
+<p>  简言之，挂载命名空间提供了一种机制，能够让不同进程「视角」下的文件系统呈现出不同的结构和内容，我们所熟知的 Docker 正是利用了这一技术来实现容器之间的隔离。</p>
+<h3 id="API">API</h3>
+<p>  有三个较为常见的系统调用与命名空间有关：<code>clone()</code>、<code>unshare()</code> 和 <code>setns()</code></p>
+<ul>
+<li><code>clone()</code></li>
+</ul>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">clone</span><span class="params">(<span class="keyword">int</span> (*fn)(<span class="keyword">void</span> *), <span class="keyword">void</span> *stack, <span class="keyword">int</span> flags, <span class="keyword">void</span> *arg)</span></span>;</span><br></pre></td></tr></tbody></table></figure>
+<p>  允许在新的命名空间中创建一个<strong>子进程</strong>，通过指定不同的 <code>CLONE_NEW*</code> 标志位，可以控制需要分离的命名空间类型。</p>
+<ul>
+<li><code>unshare()</code></li>
+</ul>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">unshare</span><span class="params">(<span class="keyword">int</span> flags)</span></span>;</span><br></pre></td></tr></tbody></table></figure>
+<p>  与 <code>clone()</code> 类似，但 <code>unshare()</code> 用于分离<strong>调用者</strong>的命名空间。</p>
+<ul>
+<li><code>setns()</code></li>
+</ul>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">setns</span><span class="params">(<span class="keyword">int</span> fd, <span class="keyword">int</span> nstype)</span></span>;</span><br></pre></td></tr></tbody></table></figure>
+<p>  将<strong>调用者</strong>移动到一个<strong>现有</strong>的命名空间，<code>fd</code> 为一个指向 <code>/proc/[pid]/ns</code> 下魔法链接的文件描述符，<code>nstype</code> 用于控制需要加入的命名空间类型，对于已知命名空间类型的 <code>fd</code>，将该标志位设置为 0 即可</p>
+<h2 id="共享子树">共享子树</h2>
+<h3 id="概述-2">概述</h3>
+<p>  实现挂载命名空间之后，又带来了新的问题。假如已经有多个进程工作在不同的挂载命名空间之中，此时用户向电脑插入一块 U 盘（<code>/dev/sda</code>），如果要使所有进程都能访问这块 U 盘，则需要在它们各自的命名空间之中一一进行挂载，这显然不像是一款设计精良的操作系统上应该出现的事情。于是在 2006 年初，共享子树特性被添加到了 Linux 2.6.15 中，它允许自动、可控地在命名空间之间传播挂载和卸载事件</p>
+<p>  一个典型的例子是：当我们在 Termux 中挂载磁盘镜像时，在 MT 管理器中看不到其内容，而当我们在 adb shell 环境下挂载同样的镜像时，任何地方都可以看到。</p>
+<h3 id="传播类型">传播类型</h3>
+<p>  在共享子树特性下，每个挂载点都由「传播类型」标记，「传播类型」控制着挂载点下的挂载和卸载事件是否会传播到「对等组」中的其它挂载点（关于对等组的概念，会在接下来介绍），一共有四种不同的传播类型：</p>
+<ul>
+<li><code>MS_SHARED</code></li>
+</ul>
+<p>  共享挂载。该挂载点与同一对等组中的其它挂载点同步传播挂载和卸载事件</p>
+<ul>
+<li><code>MS_PRIVATE</code></li>
+</ul>
+<p>  私有挂载。不属于任何对等组，所以也不会发生事件传播</p>
+<ul>
+<li><code>MS_SLAVE</code></li>
+</ul>
+<p>  从属挂载。介于共享挂载与私有挂载之间，它可以接收对等组中其它挂载点的挂载和卸载事件，但不会将自身的变化传播到其它挂载点</p>
+<ul>
+<li><code>MS_UNBINDABLE</code></li>
+</ul>
+<p>  不可绑定挂载。与私有挂载类似，不属于任何对等组，此外，此挂载点不可作为绑定挂载的源</p>
+<h3 id="对等组">对等组</h3>
+<div class="note info simple"><p>对于绑定挂载，其事件传播细节非常复杂，故以下所有讨论均未考虑绑定挂载</p>
+</div>
+<p>  对等组是一组挂载点，他们会互相传播挂载和卸载事件，当传播类型是共享的挂载点创建新的命名空间时，对等组会获得新成员。对等组和传播类型共同控制着事件在各个命名空间中的传播，考虑下面一种情况：</p>
+<p>  <code>M1</code>、<code>M2</code>、<code>M3</code> 是一组共享挂载，子挂载 <code>A1</code>、<code>A2</code>、<code>A3</code> 分别挂载到 <code>M1</code>、<code>M2</code>、<code>M3</code> 的目录 <code>x</code> 上，接下来有 <code>C1</code>、<code>C2</code>、<code>C3</code> 再次分别挂载到 <code>M1</code>、<code>M2</code>、<code>M3</code> 的目录 <code>x</code>。</p>
+<p>  如果此时卸载 <code>C1</code>，<code>M1</code> 会将此卸载事件传播到 <code>M2</code> 和 <code>M3</code>，通知其「卸载挂载点 <code>C</code>」，所以最终 <code>C1</code>、<code>C2</code>、<code>C3</code> 都将被卸载，但如果 <code>C2</code>、<code>C3</code> 下有子挂载点，则他们的卸载操作会静默失败。</p>
+<p>  我们同样可以通过读取 <code>/proc/self/mountinfo</code> 来查看当前进程的对等组和传播类型信息：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">36 35 98:0 /mnt1 /mnt2 rw,noatime master:1 - ext3 /dev/root rw,errors=continue</span><br><span class="line">                                    ^ here!</span><br></pre></td></tr></tbody></table></figure>
+<p>  一般而言只有 0 或 1 项，冒号前面的 shared/master 等信息表示其传播类型，后面的数字表示组号，若没有标记则，则表示其为私有挂载。</p>
+<h2 id="参考-7">参考</h2>
+<ul>
+<li>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/67831794">https://zhuanlan.zhihu.com/p/67831794</a></p>
+</li>
+<li>
+<p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/266907637">https://www.zhihu.com/question/266907637</a></p>
+</li>
+<li>
+<p><a target="_blank" rel="noopener" href="https://xionchen.github.io/2016/08/25/linux-bind-mount/">https://xionchen.github.io/2016/08/25/linux-bind-mount/</a></p>
+</li>
+<li>
+<p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1529660">https://cloud.tencent.com/developer/article/1529660</a></p>
+</li>
+<li>
+<p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1531989">https://cloud.tencent.com/developer/article/1531989</a></p>
+</li>
+<li>
+<p><a target="_blank" rel="noopener" href="https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt">https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt</a></p>
+</li>
+</ul>
+<!-- hexo injector body_end start --><script defer src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/kity@2.0.4/dist/kity.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/hexo-tag-plugins@latest/lib/mindmap.min.js"></script><script async src="https://at.alicdn.com/t/font_2032782_8d5kxvn09md.js"></script><!-- hexo injector body_end end --></body></html></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Mufanc</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://blog.mufanc.xyz/posts/4104300991/">https://blog.mufanc.xyz/posts/4104300991/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明文章出处！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/assets/images/top_img.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/1719361358/"><img class="prev-cover" src="/assets/images/top_img.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">绕过 Shamiko v0.5.2 检测 Zygisk</div></div></a></div><div class="next-post pull-right"><a href="/posts/2752488453/"><img class="next-cover" src="/assets/images/top_img.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">基于内存搜索的 Zygisk 注入检测方案</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/assets/images/avatar.jpeg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Mufanc</div><div class="author-info__description"></div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">24</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">9</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Mufanc"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">博客全面重建中... <br/>
+旧博客地址： https://mufanc.gitee.io/ <br/>
+&emsp;&emsp;<span style="font-size: 1rem">（链接已经寄了 ⬆️）</span><br/>
+文章正在逐步迁移
+</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E3%80%8C%E6%8C%82%E8%BD%BD%E3%80%8D"><span class="toc-number">2.</span> <span class="toc-text">关于「挂载」</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%95%E4%B8%BA%E3%80%8C%E6%8C%82%E8%BD%BD%E3%80%8D%EF%BC%9F"><span class="toc-number">2.1.</span> <span class="toc-text">何为「挂载」？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%82%E8%BD%BD%E7%9A%84%E4%B8%80%E4%BA%9B%E7%89%B9%E6%80%A7"><span class="toc-number">2.2.</span> <span class="toc-text">挂载的一些特性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%91%E5%AE%9A%E6%8C%82%E8%BD%BD"><span class="toc-number">2.3.</span> <span class="toc-text">绑定挂载</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8C%82%E8%BD%BD%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4"><span class="toc-number">3.</span> <span class="toc-text">挂载命名空间</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A6%82%E8%BF%B0"><span class="toc-number">3.1.</span> <span class="toc-text">概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#API"><span class="toc-number">3.2.</span> <span class="toc-text">API</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B1%E4%BA%AB%E5%AD%90%E6%A0%91"><span class="toc-number">4.</span> <span class="toc-text">共享子树</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A6%82%E8%BF%B0-2"><span class="toc-number">4.1.</span> <span class="toc-text">概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%A0%E6%92%AD%E7%B1%BB%E5%9E%8B"><span class="toc-number">4.2.</span> <span class="toc-text">传播类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E7%AD%89%E7%BB%84"><span class="toc-number">4.3.</span> <span class="toc-text">对等组</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83-7"><span class="toc-number">5.</span> <span class="toc-text">参考</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/73251555/" title="在 Linux 上游玩原神（国服）">在 Linux 上游玩原神（国服）</a><time datetime="2022-08-24T15:30:31.000Z" title="发表于 2022-08-24 23:30:31">2022-08-24</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/1719361358/" title="绕过 Shamiko v0.5.2 检测 Zygisk">绕过 Shamiko v0.5.2 检测 Zygisk</a><time datetime="2022-07-26T18:32:32.000Z" title="发表于 2022-07-27 02:32:32">2022-07-27</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/4104300991/" title="理解 Linux 的「挂载命名空间」机制">理解 Linux 的「挂载命名空间」机制</a><time datetime="2022-07-05T18:14:49.000Z" title="发表于 2022-07-06 02:14:49">2022-07-06</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/2752488453/" title="基于内存搜索的 Zygisk 注入检测方案">基于内存搜索的 Zygisk 注入检测方案</a><time datetime="2022-06-28T14:26:37.000Z" title="发表于 2022-06-28 22:26:37">2022-06-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/1883065385/" title="译｜Bash-Oneliner（随缘更新）">译｜Bash-Oneliner（随缘更新）</a><time datetime="2022-05-24T16:14:48.000Z" title="发表于 2022-05-25 00:14:48">2022-05-25</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By Mufanc</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">本地搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script><script>(()=>{
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://hexo-twikoo-eight.vercel.app/',
+      region: '',
+      onCommentLoaded: function () {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.vemoji)'))
+      }
+    }, null))
+  }
+
+  const getCount = () => {
+    twikoo.getCommentsCount({
+      envId: 'https://hexo-twikoo-eight.vercel.app/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      document.getElementById('twikoo-count').innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const runFn = () => {
+    init()
+    GLOBAL_CONFIG_SITE.isPost && getCount()
+  }
+
+  const loadTwikoo = () => {
+    if (typeof twikoo === 'object') {
+      setTimeout(runFn,0)
+      return
+    } 
+    getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(runFn)
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script src="/assets/js/register-sw.js"></script><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/fireworks.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

@@ -6,7 +6,7 @@
   <link href="https://blog.mufanc.xyz/atom.xml" rel="self"/>
   
   <link href="https://blog.mufanc.xyz/"/>
-  <updated>2022-06-28T16:22:25.665Z</updated>
+  <updated>2022-08-26T18:24:46.915Z</updated>
   <id>https://blog.mufanc.xyz/</id>
   
   <author>
@@ -17,11 +17,60 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>在 Linux 上游玩原神（国服）</title>
+    <link href="https://blog.mufanc.xyz/posts/73251555/"/>
+    <id>https://blog.mufanc.xyz/posts/73251555/</id>
+    <published>2022-08-24T15:30:31.000Z</published>
+    <updated>2022-08-26T18:24:46.915Z</updated>
+    
+    
+    <summary type="html">搭配 Lutris Wine 成功上车原神，不用 Windows 的理由又多了一个捏～</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>绕过 Shamiko v0.5.2 检测 Zygisk</title>
+    <link href="https://blog.mufanc.xyz/posts/1719361358/"/>
+    <id>https://blog.mufanc.xyz/posts/1719361358/</id>
+    <published>2022-07-26T18:32:32.000Z</published>
+    <updated>2022-07-28T10:09:41.000Z</updated>
+    
+    
+    <summary type="html">这是一篇加密文章，内容可能涉及个人日常或者特殊技术分享，如果你确实想看，请与我联系，非亲友团勿扰。</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>理解 Linux 的「挂载命名空间」机制</title>
+    <link href="https://blog.mufanc.xyz/posts/4104300991/"/>
+    <id>https://blog.mufanc.xyz/posts/4104300991/</id>
+    <published>2022-07-05T18:14:49.000Z</published>
+    <updated>2022-07-26T15:55:39.000Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;h2 id=&quot;前言&quot;&gt;前言&lt;/h2&gt;
+&lt;p&gt;  经常玩机的小伙伴应该都能注意到，Magisk 中有一项设置叫「挂载命名空间模式」，里面有三个不明觉厉的选项：「全局命名空间」、「继承命名空间」和「独立命名空间」。初看这些选项，你可</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
     <title>基于内存搜索的 Zygisk 注入检测方案</title>
     <link href="https://blog.mufanc.xyz/posts/2752488453/"/>
     <id>https://blog.mufanc.xyz/posts/2752488453/</id>
     <published>2022-06-28T14:26:37.000Z</published>
-    <updated>2022-06-28T16:22:25.665Z</updated>
+    <updated>2022-06-28T16:22:24.000Z</updated>
     
     
       
@@ -39,7 +88,7 @@
     <link href="https://blog.mufanc.xyz/posts/1883065385/"/>
     <id>https://blog.mufanc.xyz/posts/1883065385/</id>
     <published>2022-05-24T16:14:48.000Z</published>
-    <updated>2022-06-26T09:12:07.174Z</updated>
+    <updated>2022-07-03T07:50:32.000Z</updated>
     
     
       
@@ -57,7 +106,7 @@
     <link href="https://blog.mufanc.xyz/posts/2765251836/"/>
     <id>https://blog.mufanc.xyz/posts/2765251836/</id>
     <published>2022-05-15T07:06:45.000Z</published>
-    <updated>2022-05-15T09:48:38.701Z</updated>
+    <updated>2022-05-15T09:48:38.000Z</updated>
     
     
     <summary type="html">其实只是一小时弄出来的玩具罢了</summary>
@@ -72,7 +121,7 @@
     <link href="https://blog.mufanc.xyz/posts/2630826759/"/>
     <id>https://blog.mufanc.xyz/posts/2630826759/</id>
     <published>2022-05-12T14:39:50.000Z</published>
-    <updated>2022-05-13T11:29:24.601Z</updated>
+    <updated>2022-05-13T11:29:24.000Z</updated>
     
     
       
@@ -90,7 +139,7 @@
     <link href="https://blog.mufanc.xyz/posts/3527061138/"/>
     <id>https://blog.mufanc.xyz/posts/3527061138/</id>
     <published>2022-05-08T12:47:06.000Z</published>
-    <updated>2022-05-24T14:37:36.056Z</updated>
+    <updated>2022-05-24T14:37:36.000Z</updated>
     
     
       
@@ -110,7 +159,7 @@
     <link href="https://blog.mufanc.xyz/posts/698724079/"/>
     <id>https://blog.mufanc.xyz/posts/698724079/</id>
     <published>2022-04-15T13:29:01.000Z</published>
-    <updated>2022-05-23T17:57:07.179Z</updated>
+    <updated>2022-05-23T17:57:06.000Z</updated>
     
     
     <summary type="html">心得分享 &amp; 代码实现 &amp; 邪道速通，应该勉强算得上半个实验指导书？</summary>
@@ -127,7 +176,7 @@
     <link href="https://blog.mufanc.xyz/posts/2333714321/"/>
     <id>https://blog.mufanc.xyz/posts/2333714321/</id>
     <published>2022-04-06T07:08:32.000Z</published>
-    <updated>2022-05-12T12:34:12.283Z</updated>
+    <updated>2022-05-12T12:34:12.000Z</updated>
     
     
       
@@ -137,74 +186,6 @@
       
     
     
-    
-    
-    <category term="Android" scheme="https://blog.mufanc.xyz/tags/Android/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>HNU 每日打卡脚本｜技术细节和实用技巧</title>
-    <link href="https://blog.mufanc.xyz/posts/3451712385/"/>
-    <id>https://blog.mufanc.xyz/posts/3451712385/</id>
-    <published>2022-03-20T12:20:23.000Z</published>
-    <updated>2022-06-26T11:21:45.755Z</updated>
-    
-    
-      
-      
-    <summary type="html">&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;p&gt;  秉持着「能让机器完成的事情，绝不人工操作」的原则，早在入学军训之时，我就萌生了使用脚本打卡的念头，并且顺利地将其实现。时至今日，脚本也算是经历了几次迭代，现将技术细节全部公开出来，与大家一起交流讨论&lt;/p&gt;
-&lt;div c</summary>
-      
-    
-    
-    
-    
-    <category term="自动化" scheme="https://blog.mufanc.xyz/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/"/>
-    
-    <category term="网络" scheme="https://blog.mufanc.xyz/tags/%E7%BD%91%E7%BB%9C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>记录｜使用 ESXi 软路由构建舒适的宿舍网络环境</title>
-    <link href="https://blog.mufanc.xyz/posts/1524517905/"/>
-    <id>https://blog.mufanc.xyz/posts/1524517905/</id>
-    <published>2022-03-11T10:33:55.000Z</published>
-    <updated>2022-06-02T17:25:29.416Z</updated>
-    
-    
-      
-      
-    <summary type="html">&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;p&gt;  学校虽有提供现成的校园网和宽带服务，但我这么一个折腾狂魔，免不了要对网络环境进行一番改造，遂斥巨资购入了一台搭载 ESXi 系统的工控机来作为软路由使用&lt;/p&gt;
-&lt;h2 id=&quot;关于校园网-校园宽带&quot;&gt;关于校园网 &amp;am</summary>
-      
-    
-    
-    
-    <category term="网络运维" scheme="https://blog.mufanc.xyz/categories/%E7%BD%91%E7%BB%9C%E8%BF%90%E7%BB%B4/"/>
-    
-    
-    <category term="网络" scheme="https://blog.mufanc.xyz/tags/%E7%BD%91%E7%BB%9C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>记录｜在 AVD 模拟器上安装 Magisk</title>
-    <link href="https://blog.mufanc.xyz/posts/52971059/"/>
-    <id>https://blog.mufanc.xyz/posts/52971059/</id>
-    <published>2022-03-05T05:36:04.000Z</published>
-    <updated>2022-03-05T17:07:36.276Z</updated>
-    
-    
-      
-      
-    <summary type="html">&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;p&gt;  在 Android 开发过程中，免不了要将应用丢到设备上测试。如果使用实体设备，每次都要配置 ADB 连接，非常麻烦；甚至在开发某些 Xposed 模块时，需要将设备反复重启，大大降低了调试效率。如果能将这些工作都转移到</summary>
-      
-    
-    
-    
-    <category term="环境运维" scheme="https://blog.mufanc.xyz/categories/%E7%8E%AF%E5%A2%83%E8%BF%90%E7%BB%B4/"/>
     
     
     <category term="Android" scheme="https://blog.mufanc.xyz/tags/Android/"/>
