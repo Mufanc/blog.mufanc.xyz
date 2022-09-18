@@ -6,7 +6,7 @@
   <link href="https://blog.mufanc.xyz/atom.xml" rel="self"/>
   
   <link href="https://blog.mufanc.xyz/"/>
-  <updated>2022-08-26T18:25:30.066Z</updated>
+  <updated>2022-09-18T16:55:19.690Z</updated>
   <id>https://blog.mufanc.xyz/</id>
   
   <author>
@@ -15,6 +15,25 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Android 应用启动流程分析（持续更新）</title>
+    <link href="https://blog.mufanc.xyz/posts/1577788855/"/>
+    <id>https://blog.mufanc.xyz/posts/1577788855/</id>
+    <published>2022-09-18T07:07:30.000Z</published>
+    <updated>2022-09-18T16:55:19.690Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;div class=&quot;note purple icon simple&quot;&gt;&lt;i class=&quot;note-icon fas fa-car-crash&quot;&gt;&lt;/i&gt;&lt;p&gt; 本文将是史无前例的巨坑，希望自己能坚持下来罢！&lt;br&gt;
+ 别摆烂</summary>
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>在 Linux 上游玩原神（国服）</title>
@@ -168,27 +187,6 @@
     
     <category term="破烂实验" scheme="https://blog.mufanc.xyz/categories/%E7%A0%B4%E7%83%82%E5%AE%9E%E9%AA%8C/"/>
     
-    
-  </entry>
-  
-  <entry>
-    <title>总是错过消息？来做一个 Android 进程锁！</title>
-    <link href="https://blog.mufanc.xyz/posts/2333714321/"/>
-    <id>https://blog.mufanc.xyz/posts/2333714321/</id>
-    <published>2022-04-06T07:08:32.000Z</published>
-    <updated>2022-05-12T12:34:12.000Z</updated>
-    
-    
-      
-      
-    <summary type="html">&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;h2 id=&quot;背景&quot;&gt;背景&lt;/h2&gt;
-&lt;p&gt;  我们在使用手机时，难免需要对某些应用做后台保活，比如社交软件、音乐播放器、VPN 代理、广告跳过工具等等，但许多国内 ROM 厂商却将 Android 的「最近任务」做成了「任务列</summary>
-      
-    
-    
-    
-    
-    <category term="Android" scheme="https://blog.mufanc.xyz/tags/Android/"/>
     
   </entry>
   
