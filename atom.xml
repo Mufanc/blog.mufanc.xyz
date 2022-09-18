@@ -6,7 +6,7 @@
   <link href="https://blog.mufanc.xyz/atom.xml" rel="self"/>
   
   <link href="https://blog.mufanc.xyz/"/>
-  <updated>2022-09-18T16:55:19.690Z</updated>
+  <updated>2022-09-18T18:38:03.988Z</updated>
   <id>https://blog.mufanc.xyz/</id>
   
   <author>
@@ -21,14 +21,10 @@
     <link href="https://blog.mufanc.xyz/posts/1577788855/"/>
     <id>https://blog.mufanc.xyz/posts/1577788855/</id>
     <published>2022-09-18T07:07:30.000Z</published>
-    <updated>2022-09-18T16:55:19.690Z</updated>
+    <updated>2022-09-18T18:38:03.988Z</updated>
     
     
-      
-      
-    <summary type="html">&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;div class=&quot;note purple icon simple&quot;&gt;&lt;i class=&quot;note-icon fas fa-car-crash&quot;&gt;&lt;/i&gt;&lt;p&gt; 本文将是史无前例的巨坑，希望自己能坚持下来罢！&lt;br&gt;
- 别摆烂</summary>
-      
+    <summary type="html">深入 SystemServer 和 Zygote，分析 Android 应用启动过程 …… 大概是目前为止开过最大的坑了罢</summary>
     
     
     
