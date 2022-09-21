@@ -6,7 +6,7 @@
   <link href="https://blog.mufanc.xyz/atom.xml" rel="self"/>
   
   <link href="https://blog.mufanc.xyz/"/>
-  <updated>2022-09-18T18:38:03.988Z</updated>
+  <updated>2022-09-21T14:28:57.638Z</updated>
   <id>https://blog.mufanc.xyz/</id>
   
   <author>
@@ -21,12 +21,14 @@
     <link href="https://blog.mufanc.xyz/posts/1577788855/"/>
     <id>https://blog.mufanc.xyz/posts/1577788855/</id>
     <published>2022-09-18T07:07:30.000Z</published>
-    <updated>2022-09-18T18:38:03.988Z</updated>
+    <updated>2022-09-21T14:28:57.638Z</updated>
     
     
     <summary type="html">深入 SystemServer 和 Zygote，分析 Android 应用启动过程 …… 大概是目前为止开过最大的坑了罢</summary>
     
     
+    
+    <category term="Android" scheme="https://blog.mufanc.xyz/categories/Android/"/>
     
     
   </entry>
@@ -36,12 +38,14 @@
     <link href="https://blog.mufanc.xyz/posts/73251555/"/>
     <id>https://blog.mufanc.xyz/posts/73251555/</id>
     <published>2022-08-24T15:30:31.000Z</published>
-    <updated>2022-08-26T18:25:30.066Z</updated>
+    <updated>2022-09-21T14:29:17.659Z</updated>
     
     
     <summary type="html">搭配 Lutris Wine 成功上车原神，不用 Windows 的理由又多了一个捏～</summary>
     
     
+    
+    <category term="奇技淫巧" scheme="https://blog.mufanc.xyz/categories/%E5%A5%87%E6%8A%80%E6%B7%AB%E5%B7%A7/"/>
     
     
   </entry>
@@ -51,12 +55,16 @@
     <link href="https://blog.mufanc.xyz/posts/1719361358/"/>
     <id>https://blog.mufanc.xyz/posts/1719361358/</id>
     <published>2022-07-26T18:32:32.000Z</published>
-    <updated>2022-07-28T10:09:41.000Z</updated>
+    <updated>2022-09-21T13:50:50.534Z</updated>
     
     
     <summary type="html">这是一篇加密文章，内容可能涉及个人日常或者特殊技术分享，如果你确实想看，请与我联系，非亲友团勿扰。</summary>
     
     
+    
+    <category term="Android" scheme="https://blog.mufanc.xyz/categories/Android/"/>
+    
+    <category term="Magisk" scheme="https://blog.mufanc.xyz/categories/Android/Magisk/"/>
     
     
   </entry>
@@ -66,7 +74,7 @@
     <link href="https://blog.mufanc.xyz/posts/4104300991/"/>
     <id>https://blog.mufanc.xyz/posts/4104300991/</id>
     <published>2022-07-05T18:14:49.000Z</published>
-    <updated>2022-07-26T15:55:39.000Z</updated>
+    <updated>2022-09-21T14:33:06.193Z</updated>
     
     
       
@@ -77,6 +85,8 @@
     
     
     
+    <category term="OS Lab" scheme="https://blog.mufanc.xyz/categories/OS-Lab/"/>
+    
     
   </entry>
   
@@ -85,7 +95,7 @@
     <link href="https://blog.mufanc.xyz/posts/2752488453/"/>
     <id>https://blog.mufanc.xyz/posts/2752488453/</id>
     <published>2022-06-28T14:26:37.000Z</published>
-    <updated>2022-06-28T16:22:24.000Z</updated>
+    <updated>2022-09-21T14:28:23.881Z</updated>
     
     
       
@@ -95,6 +105,10 @@
     
     
     
+    <category term="Android" scheme="https://blog.mufanc.xyz/categories/Android/"/>
+    
+    <category term="Magisk" scheme="https://blog.mufanc.xyz/categories/Android/Magisk/"/>
+    
     
   </entry>
   
@@ -103,7 +117,7 @@
     <link href="https://blog.mufanc.xyz/posts/1883065385/"/>
     <id>https://blog.mufanc.xyz/posts/1883065385/</id>
     <published>2022-05-24T16:14:48.000Z</published>
-    <updated>2022-07-03T07:50:32.000Z</updated>
+    <updated>2022-09-21T14:28:43.429Z</updated>
     
     
       
@@ -113,6 +127,8 @@
     
     
     
+    <category term="奇技淫巧" scheme="https://blog.mufanc.xyz/categories/%E5%A5%87%E6%8A%80%E6%B7%AB%E5%B7%A7/"/>
+    
     
   </entry>
   
@@ -121,12 +137,16 @@
     <link href="https://blog.mufanc.xyz/posts/2765251836/"/>
     <id>https://blog.mufanc.xyz/posts/2765251836/</id>
     <published>2022-05-15T07:06:45.000Z</published>
-    <updated>2022-05-15T09:48:38.000Z</updated>
+    <updated>2022-09-21T14:27:32.401Z</updated>
     
     
     <summary type="html">其实只是一小时弄出来的玩具罢了</summary>
     
     
+    
+    <category term="Android" scheme="https://blog.mufanc.xyz/categories/Android/"/>
+    
+    <category term="逆向" scheme="https://blog.mufanc.xyz/categories/Android/%E9%80%86%E5%90%91/"/>
     
     
   </entry>
@@ -136,7 +156,7 @@
     <link href="https://blog.mufanc.xyz/posts/2630826759/"/>
     <id>https://blog.mufanc.xyz/posts/2630826759/</id>
     <published>2022-05-12T14:39:50.000Z</published>
-    <updated>2022-05-13T11:29:24.000Z</updated>
+    <updated>2022-09-21T13:47:46.583Z</updated>
     
     
       
@@ -146,6 +166,8 @@
     
     
     
+    <category term="「梦中的桓那兰那」" scheme="https://blog.mufanc.xyz/categories/%E3%80%8C%E6%A2%A6%E4%B8%AD%E7%9A%84%E6%A1%93%E9%82%A3%E5%85%B0%E9%82%A3%E3%80%8D/"/>
+    
     
   </entry>
   
@@ -154,7 +176,7 @@
     <link href="https://blog.mufanc.xyz/posts/3527061138/"/>
     <id>https://blog.mufanc.xyz/posts/3527061138/</id>
     <published>2022-05-08T12:47:06.000Z</published>
-    <updated>2022-05-24T14:37:36.000Z</updated>
+    <updated>2022-09-21T14:30:15.800Z</updated>
     
     
       
@@ -164,8 +186,8 @@
     
     
     
+    <category term="杂项" scheme="https://blog.mufanc.xyz/categories/%E6%9D%82%E9%A1%B9/"/>
     
-    <category term="Native" scheme="https://blog.mufanc.xyz/tags/Native/"/>
     
   </entry>
   
@@ -174,14 +196,14 @@
     <link href="https://blog.mufanc.xyz/posts/698724079/"/>
     <id>https://blog.mufanc.xyz/posts/698724079/</id>
     <published>2022-04-15T13:29:01.000Z</published>
-    <updated>2022-05-23T17:57:06.000Z</updated>
+    <updated>2022-09-21T14:27:25.160Z</updated>
     
     
     <summary type="html">心得分享 &amp; 代码实现 &amp; 邪道速通，应该勉强算得上半个实验指导书？</summary>
     
     
     
-    <category term="破烂实验" scheme="https://blog.mufanc.xyz/categories/%E7%A0%B4%E7%83%82%E5%AE%9E%E9%AA%8C/"/>
+    <category term="杂项" scheme="https://blog.mufanc.xyz/categories/%E6%9D%82%E9%A1%B9/"/>
     
     
   </entry>
