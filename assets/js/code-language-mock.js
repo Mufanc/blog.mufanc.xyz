@@ -3,7 +3,8 @@ function mock(origin, target) {
     let configs = { childList: true, subtree: true };
     let observer = new MutationObserver((mutationList) => {
         for (let mutation of mutationList) {
-            mutation.target.querySelector('.code-lang').innerHTML = target;
+            let element = mutation.target.querySelector('.code-lang');
+            element && (element.innerHTML = target);
         }
     });
     let codes = document.querySelectorAll(`figure.highlight.${origin}`);

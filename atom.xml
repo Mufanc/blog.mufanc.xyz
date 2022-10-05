@@ -6,7 +6,7 @@
   <link href="https://blog.mufanc.xyz/atom.xml" rel="self"/>
   
   <link href="https://blog.mufanc.xyz/"/>
-  <updated>2022-09-21T14:28:57.638Z</updated>
+  <updated>2022-10-05T13:31:40.466Z</updated>
   <id>https://blog.mufanc.xyz/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://blog.mufanc.xyz/posts/1577788855/"/>
     <id>https://blog.mufanc.xyz/posts/1577788855/</id>
     <published>2022-09-18T07:07:30.000Z</published>
-    <updated>2022-09-21T14:28:57.638Z</updated>
+    <updated>2022-10-05T13:31:40.466Z</updated>
     
     
     <summary type="html">深入 SystemServer 和 Zygote，分析 Android 应用启动过程 …… 大概是目前为止开过最大的坑了罢</summary>
@@ -74,7 +74,7 @@
     <link href="https://blog.mufanc.xyz/posts/4104300991/"/>
     <id>https://blog.mufanc.xyz/posts/4104300991/</id>
     <published>2022-07-05T18:14:49.000Z</published>
-    <updated>2022-09-21T14:33:06.193Z</updated>
+    <updated>2022-10-05T13:23:04.405Z</updated>
     
     
       
