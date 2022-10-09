@@ -6,7 +6,7 @@
   <link href="https://blog.mufanc.xyz/atom.xml" rel="self"/>
   
   <link href="https://blog.mufanc.xyz/"/>
-  <updated>2022-10-09T11:02:56.532Z</updated>
+  <updated>2022-10-09T13:40:32.264Z</updated>
   <id>https://blog.mufanc.xyz/</id>
   
   <author>
@@ -15,6 +15,23 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>LeetCode 每日一题（2022-10-09）</title>
+    <link href="https://blog.mufanc.xyz/posts/3111433537/"/>
+    <id>https://blog.mufanc.xyz/posts/3111433537/</id>
+    <published>2022-10-09T11:49:10.000Z</published>
+    <updated>2022-10-09T13:40:32.264Z</updated>
+    
+    
+    <summary type="html">856. 括号的分数</summary>
+    
+    
+    
+    <category term="LeetCode 每日一题" scheme="https://blog.mufanc.xyz/categories/LeetCode-%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>搬运｜理解 Linux 的信号（signal）机制</title>
@@ -187,26 +204,6 @@
     
     
     <category term="「梦中的桓那兰那」" scheme="https://blog.mufanc.xyz/categories/%E3%80%8C%E6%A2%A6%E4%B8%AD%E7%9A%84%E6%A1%93%E9%82%A3%E5%85%B0%E9%82%A3%E3%80%8D/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>C++ 宏定义使用手册</title>
-    <link href="https://blog.mufanc.xyz/posts/3527061138/"/>
-    <id>https://blog.mufanc.xyz/posts/3527061138/</id>
-    <published>2022-05-08T12:47:06.000Z</published>
-    <updated>2022-09-21T14:30:15.800Z</updated>
-    
-    
-      
-      
-    <summary type="html">&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;p&gt;  在 C++ 中，可以通过宏定义命令 &lt;code&gt;#define&lt;/code&gt; 简化代码编写过程，为开发提供极大的便利，但初学时我们常常不能理解该命令的本质，导致代码出现逻辑错误或者无法通过编译。本文总结了一些宏定义的常见</summary>
-      
-    
-    
-    
-    <category term="杂项" scheme="https://blog.mufanc.xyz/categories/%E6%9D%82%E9%A1%B9/"/>
     
     
   </entry>
