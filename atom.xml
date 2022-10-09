@@ -6,7 +6,7 @@
   <link href="https://blog.mufanc.xyz/atom.xml" rel="self"/>
   
   <link href="https://blog.mufanc.xyz/"/>
-  <updated>2022-10-05T13:31:40.466Z</updated>
+  <updated>2022-10-09T10:57:43.173Z</updated>
   <id>https://blog.mufanc.xyz/</id>
   
   <author>
@@ -15,6 +15,24 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>搬运｜理解 Linux 的信号（signal）机制</title>
+    <link href="https://blog.mufanc.xyz/posts/471800621/"/>
+    <id>https://blog.mufanc.xyz/posts/471800621/</id>
+    <published>2022-10-09T09:47:48.000Z</published>
+    <updated>2022-10-09T10:57:43.173Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;div class=&quot;note info simple&quot;&gt;&lt;p&gt;文章转自：&lt;a href=&quot;http://gityuan.com/2015/12/20/signal/&quot;&gt;Linux 信号（signal）机制 - Gityuan博</summary>
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>Android 应用启动流程分析（持续更新）</title>
@@ -74,7 +92,7 @@
     <link href="https://blog.mufanc.xyz/posts/4104300991/"/>
     <id>https://blog.mufanc.xyz/posts/4104300991/</id>
     <published>2022-07-05T18:14:49.000Z</published>
-    <updated>2022-10-05T13:23:04.405Z</updated>
+    <updated>2022-10-09T08:00:50.969Z</updated>
     
     
       
@@ -183,23 +201,6 @@
       
     <summary type="html">&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;p&gt;  在 C++ 中，可以通过宏定义命令 &lt;code&gt;#define&lt;/code&gt; 简化代码编写过程，为开发提供极大的便利，但初学时我们常常不能理解该命令的本质，导致代码出现逻辑错误或者无法通过编译。本文总结了一些宏定义的常见</summary>
       
-    
-    
-    
-    <category term="杂项" scheme="https://blog.mufanc.xyz/categories/%E6%9D%82%E9%A1%B9/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>工训 Linux 计算机串口使用｜软件部分（Any%）</title>
-    <link href="https://blog.mufanc.xyz/posts/698724079/"/>
-    <id>https://blog.mufanc.xyz/posts/698724079/</id>
-    <published>2022-04-15T13:29:01.000Z</published>
-    <updated>2022-09-21T14:27:25.160Z</updated>
-    
-    
-    <summary type="html">心得分享 &amp; 代码实现 &amp; 邪道速通，应该勉强算得上半个实验指导书？</summary>
     
     
     
