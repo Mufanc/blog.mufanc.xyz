@@ -6,7 +6,7 @@
   <link href="https://blog.mufanc.xyz/atom.xml" rel="self"/>
   
   <link href="https://blog.mufanc.xyz/"/>
-  <updated>2022-10-10T18:25:12.154Z</updated>
+  <updated>2022-10-12T12:29:51.459Z</updated>
   <id>https://blog.mufanc.xyz/</id>
   
   <author>
@@ -17,52 +17,22 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>LeetCode 每日一题（2022-10-11）</title>
-    <link href="https://blog.mufanc.xyz/posts/2931035186/"/>
-    <id>https://blog.mufanc.xyz/posts/2931035186/</id>
-    <published>2022-10-10T18:01:48.000Z</published>
-    <updated>2022-10-10T18:25:12.154Z</updated>
-    
-    
-    <summary type="html">1790. 仅执行一次字符串交换能否使两个字符串相等</summary>
-    
-    
-    
-    <category term="LeetCode 每日一题" scheme="https://blog.mufanc.xyz/categories/LeetCode-%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>LeetCode 每日一题（2022-10-10）</title>
-    <link href="https://blog.mufanc.xyz/posts/3652402340/"/>
-    <id>https://blog.mufanc.xyz/posts/3652402340/</id>
-    <published>2022-10-10T15:31:22.000Z</published>
-    <updated>2022-10-10T18:00:21.002Z</updated>
-    
-    
-    <summary type="html">801. 使序列递增的最小交换次数</summary>
-    
-    
-    
-    <category term="LeetCode 每日一题" scheme="https://blog.mufanc.xyz/categories/LeetCode-%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>LeetCode 每日一题（2022-10-09）</title>
+    <title>LeetCode 每日一题｜更新至 2022-10-12</title>
     <link href="https://blog.mufanc.xyz/posts/3111433537/"/>
     <id>https://blog.mufanc.xyz/posts/3111433537/</id>
     <published>2022-10-09T11:49:10.000Z</published>
-    <updated>2022-10-10T15:46:43.803Z</updated>
+    <updated>2022-10-12T12:29:51.459Z</updated>
     
     
-    <summary type="html">856. 括号的分数</summary>
+      
+      
+    <summary type="html">&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;p&gt;  开新坑咯～&lt;/p&gt;
+&lt;p&gt;  作为一名 NOIP 退役选手，已经两年（？）没有好好研究算法了，就连 CCF CSP 也全靠吃着高中的老本。&lt;s&gt;然而做人如果没有梦想，那和一条咸鱼有什么分别呢？&lt;/s&gt; 遂开此坑，有这时间</summary>
+      
     
     
     
-    <category term="LeetCode 每日一题" scheme="https://blog.mufanc.xyz/categories/LeetCode-%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/"/>
+    <category term="杂项" scheme="https://blog.mufanc.xyz/categories/%E6%9D%82%E9%A1%B9/"/>
     
     
   </entry>
@@ -199,6 +169,45 @@
     
     
     <category term="奇技淫巧" scheme="https://blog.mufanc.xyz/categories/%E5%A5%87%E6%8A%80%E6%B7%AB%E5%B7%A7/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>实战：「大学搜题酱」应用逆向与答案提取</title>
+    <link href="https://blog.mufanc.xyz/posts/2765251836/"/>
+    <id>https://blog.mufanc.xyz/posts/2765251836/</id>
+    <published>2022-05-15T07:06:45.000Z</published>
+    <updated>2022-10-05T13:48:33.385Z</updated>
+    
+    
+    <summary type="html">其实只是一小时弄出来的玩具罢了</summary>
+    
+    
+    
+    <category term="Android" scheme="https://blog.mufanc.xyz/categories/Android/"/>
+    
+    <category term="逆向" scheme="https://blog.mufanc.xyz/categories/Android/%E9%80%86%E5%90%91/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Screeps: Arena 初体验</title>
+    <link href="https://blog.mufanc.xyz/posts/2630826759/"/>
+    <id>https://blog.mufanc.xyz/posts/2630826759/</id>
+    <published>2022-05-12T14:39:50.000Z</published>
+    <updated>2022-09-21T13:47:46.583Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;p&gt;  在朋友推荐下入坑了这款 RTS 神作，与传统 RTS 游戏不同，Screeps: Arena 使用真 · JavaScript 语言编写脚本来控制你的机器人（Creep）与对方机器人战斗，一旦战斗开始，便无法再做任何输入</summary>
+      
+    
+    
+    
+    <category term="「梦中的桓那兰那」" scheme="https://blog.mufanc.xyz/categories/%E3%80%8C%E6%A2%A6%E4%B8%AD%E7%9A%84%E6%A1%93%E9%82%A3%E5%85%B0%E9%82%A3%E3%80%8D/"/>
     
     
   </entry>
