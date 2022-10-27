@@ -32,7 +32,7 @@
 
 /* 文章背景透明 */
 :root {
-    --card-bg: #ffffffcc;
+    --card-bg: #ffffffdd;
 }
 
 [data-theme='dark'] {
