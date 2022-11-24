@@ -6,7 +6,7 @@
   <link href="https://blog.mufanc.xyz/atom.xml" rel="self"/>
   
   <link href="https://blog.mufanc.xyz/"/>
-  <updated>2022-10-29T07:55:48.913Z</updated>
+  <updated>2022-11-24T09:15:47.736Z</updated>
   <id>https://blog.mufanc.xyz/</id>
   
   <author>
@@ -15,6 +15,25 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>记一次 LVM Linux 全盘迁移</title>
+    <link href="https://blog.mufanc.xyz/posts/2826587752/"/>
+    <id>https://blog.mufanc.xyz/posts/2826587752/</id>
+    <published>2022-11-13T15:19:11.000Z</published>
+    <updated>2022-11-24T09:15:47.736Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;p&gt;  我的电脑，它寄了。在一次 &lt;code&gt;sudo reboot&lt;/code&gt; 之后，它就再也没有起来过。&lt;/p&gt;
+&lt;p&gt;  但是工作不能停下，所以需要想个办法让我能够从笔记本轻松访问到旧系统中的文件，好在硬盘并没有坏，我可</summary>
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>参加 Hackergame 2022 是怎样一种体验？</title>
@@ -38,11 +57,11 @@
   </entry>
   
   <entry>
-    <title>LeetCode 每日一题｜更新至 2022-11-23</title>
+    <title>LeetCode 每日一题｜更新至 2022-11-24</title>
     <link href="https://blog.mufanc.xyz/posts/3111433537/"/>
     <id>https://blog.mufanc.xyz/posts/3111433537/</id>
     <published>2022-10-09T11:49:10.000Z</published>
-    <updated>2022-11-23T08:55:12.635Z</updated>
+    <updated>2022-11-24T09:16:56.137Z</updated>
     
     
       
@@ -190,25 +209,6 @@
     
     
     <category term="奇技淫巧" scheme="https://blog.mufanc.xyz/categories/%E5%A5%87%E6%8A%80%E6%B7%AB%E5%B7%A7/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>实战：「大学搜题酱」应用逆向与答案提取</title>
-    <link href="https://blog.mufanc.xyz/posts/2765251836/"/>
-    <id>https://blog.mufanc.xyz/posts/2765251836/</id>
-    <published>2022-05-15T07:06:45.000Z</published>
-    <updated>2022-10-05T13:48:33.385Z</updated>
-    
-    
-    <summary type="html">其实只是一小时弄出来的玩具罢了</summary>
-    
-    
-    
-    <category term="Android" scheme="https://blog.mufanc.xyz/categories/Android/"/>
-    
-    <category term="逆向" scheme="https://blog.mufanc.xyz/categories/Android/%E9%80%86%E5%90%91/"/>
     
     
   </entry>
